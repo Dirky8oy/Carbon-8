@@ -95,119 +95,50 @@ body {
   width: 100%;
   height: 100vh;
   min-height: 600px;
-  background: var(--deep-navy);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background: #F7FAFC; /* matches animation canvas colour */
 }
-
-/* Schematic grid background */
-.hero-grid {
+#hero-anim-root {
   position: absolute;
   inset: 0;
+}
+
+/* Scroll hint — appears after animation settles */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
   pointer-events: none;
+  opacity: 0;
+  animation: hint-fade-in 1s ease 9s forwards;
 }
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 0 80px;
-  max-width: 960px;
-  margin-top: 0;
-}
-
-.hero-eyebrow {
+@keyframes hint-fade-in { to { opacity: 1; } }
+.hero-scroll-label {
   font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  color: var(--arctic-blue);
-  margin-bottom: 32px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  color: var(--near-black);
+  opacity: 0.45;
+  text-transform: uppercase;
 }
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 2px;
+.hero-scroll-line {
+  width: 1px;
+  height: 28px;
   background: var(--arctic-blue);
-  flex-shrink: 0;
+  opacity: 0.5;
+  animation: scroll-drop 1.8s ease-in-out 9s infinite;
+  transform-origin: top center;
 }
-
-/* Animated logo lockup */
-.hero-lockup {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 48px;
-  position: relative;
+@keyframes scroll-drop {
+  0%,100% { transform: scaleY(1); opacity: 0.4; }
+  50%      { transform: scaleY(1.3); opacity: 0.75; }
 }
-.hero-icon-wrap {
-  position: relative;
-  width: 120px;
-  height: 86px;
-  flex-shrink: 0;
-}
-.hero-icon-half {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-}
-.hero-wordmark-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  opacity: 0;
-  transform: translateX(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.hero-wordmark-group.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-.hero-magna { height: 44px; width: auto; }
-.hero-therma { height: 34px; width: auto; margin-left: 2px; }
-
-.hero-headline {
-  font-family: var(--helv);
-  font-weight: 700;
-  font-size: clamp(40px, 5.5vw, 72px);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--frost-white);
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
-}
-.hero-headline.visible { opacity: 1; transform: translateY(0); }
-
-.hero-sub {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: rgba(221, 229, 234, 0.75);
-  max-width: 520px;
-  margin-bottom: 48px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s;
-}
-.hero-sub.visible { opacity: 1; transform: translateY(0); }
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  opacity: 0;
-  transition: opacity 0.5s ease 0.4s;
-}
-.hero-actions.visible { opacity: 1; }
 
 .btn-primary {
   display: inline-block;
@@ -240,37 +171,6 @@ body {
   transition: border-color 200ms, color 200ms;
 }
 .btn-outline:hover { border-color: var(--frost-white); }
-
-/* Hero rule */
-.hero-rule {
-  position: absolute;
-  bottom: 64px;
-  left: 80px;
-  right: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.hero-rule-line {
-  flex: 1;
-  height: 1px;
-  background: rgba(221,229,234,0.15);
-}
-.hero-rule-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(221,229,234,0.35);
-  padding: 0 24px;
-}
-
-/* Crosshair SVG overlay */
-.hero-crosshair {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
 
 /* ── Section commons ─────────────────────────────────────────── */
 .section-label {
@@ -820,61 +720,12 @@ body {
 
 <!-- ── Hero ──────────────────────────────────────────────────────── -->
 <section class="hero" id="hero">
-
-  <!-- Schematic grid -->
-  <svg class="hero-grid" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <defs>
-      <pattern id="grid-minor" width="80" height="80" patternUnits="userSpaceOnUse">
-        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(221,229,234,0.04)" stroke-width="1"/>
-      </pattern>
-      <pattern id="grid-major" width="400" height="400" patternUnits="userSpaceOnUse">
-        <path d="M 400 0 L 0 0 0 400" fill="none" stroke="rgba(221,229,234,0.07)" stroke-width="1"/>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#grid-minor)"/>
-    <rect width="100%" height="100%" fill="url(#grid-major)"/>
-    <!-- Corner registration marks -->
-    <g stroke="rgba(221,229,234,0.2)" stroke-width="1.5" fill="none" stroke-linecap="square" id="hero-brackets" opacity="0">
-      <path d="M 100 48 L 48 48 L 48 100"/>
-      <path d="M calc(100% - 100) 48 L calc(100% - 48) 48 L calc(100% - 48) 100"/>
-      <path d="M 100 calc(100% - 48) L 48 calc(100% - 48) L 48 calc(100% - 100)"/>
-      <path d="M calc(100% - 100) calc(100% - 48) L calc(100% - 48) calc(100% - 48) L calc(100% - 48) calc(100% - 100)"/>
-    </g>
-    <!-- Top chrome labels -->
-    <text x="48" y="34" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.2em" fill="rgba(221,229,234,0.25)" id="hero-label-left" opacity="0">MAGNA THERMA / CRYO INDUSTRIAL</text>
-    <text x="calc(100% - 48)" y="34" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.2em" fill="rgba(221,229,234,0.25)" text-anchor="end" id="hero-label-right" opacity="0">V01 · 2026</text>
-    <!-- Bottom chrome -->
-    <text x="48" y="calc(100% - 20)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.2em" fill="rgba(221,229,234,0.18)" id="hero-label-bottom" opacity="0">ENGINEERED FOR THERMAL PERFORMANCE</text>
-  </svg>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow" id="hero-eyebrow">CRYO INDUSTRIAL COOLING</div>
-
-    <!-- Logo lockup with animation -->
-    <div class="hero-lockup" id="hero-lockup">
-      <div class="hero-icon-wrap" id="hero-icon-wrap">
-        <img src="assets/icon-black.png" alt="" class="hero-icon-half" id="icon-black" draggable="false" style="filter:invert(1)">
-        <img src="assets/icon-blue.png"  alt="" class="hero-icon-half" id="icon-blue"  draggable="false">
-      </div>
-      <div class="hero-wordmark-group" id="hero-wordmark">
-        <img src="assets/magna.png"  alt="MAGNA" class="hero-magna"  draggable="false" style="filter:invert(1)">
-        <img src="assets/therma.png" alt="therma" class="hero-therma" draggable="false" style="filter:invert(1)">
-      </div>
-    </div>
-
-    <h1 class="hero-headline" id="hero-headline">Engineered for<br>Thermal Performance.</h1>
-    <p class="hero-sub" id="hero-sub">Advanced cooling technology built for serious thermal performance. Precision-engineered systems for demanding industrial and high-performance computing environments.</p>
-    <div class="hero-actions" id="hero-actions">
-      <a href="#technology" class="btn-primary">Explore the Technology</a>
-      <a href="#contact" class="btn-outline">Request Specs</a>
-    </div>
-  </div>
-
-  <!-- Bottom rule -->
-  <div class="hero-rule">
-    <div class="hero-rule-line"></div>
-    <span class="hero-rule-label">SERIES A · THERMAL MODULE</span>
-    <div class="hero-rule-line"></div>
+  <!-- React animation mounts here -->
+  <div id="hero-anim-root"></div>
+  <!-- Scroll indicator fades in after animation settles (~9s) -->
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="hero-scroll-label">Scroll to explore</span>
+    <div class="hero-scroll-line"></div>
   </div>
 </section>
 
@@ -1276,134 +1127,322 @@ body {
   </div>
 </footer>
 
-<!-- ── Scripts ─────────────────────────────────────────────────────── -->
-<script>
-(function() {
-  // ── Hero logo animation ──────────────────────────────────────────
-  const iconBlack = document.getElementById('icon-black');
-  const iconBlue  = document.getElementById('icon-blue');
-  const wordmark  = document.getElementById('hero-wordmark');
-  const headline  = document.getElementById('hero-headline');
-  const sub       = document.getElementById('hero-sub');
-  const actions   = document.getElementById('hero-actions');
-  const eyebrow   = document.getElementById('hero-eyebrow');
+<!-- ── React + Babel CDN ──────────────────────────────────────────── -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  // Easing helpers
-  const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
-  const easeInQuart  = t => t * t * t * t;
-  const easeOutExpo  = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-  const easeInOutQuad = t => t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
-
-  function lerp(a, b, t) { return a + (b - a) * t; }
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-  function norm(t, start, end) { return clamp((t - start) / (end - start), 0, 1); }
-
-  // Start position: halves off-screen
-  iconBlack.style.transform = 'translateX(-140px)';
-  iconBlue.style.transform  = 'translateX(140px)';
-  iconBlack.style.opacity = '0';
-  iconBlue.style.opacity  = '0';
-
-  // Show eyebrow immediately
-  eyebrow.style.opacity = '1';
-
-  let startTime = null;
-  const DURATION = 2200; // ms for the intro animation
-
-  function tick(ts) {
-    if (!startTime) startTime = ts;
-    const elapsed = ts - startTime;
-    const t = elapsed / DURATION; // 0..1+ (we clamp per segment)
-
-    // Phase 1 (0–0.35): icon halves slam in
-    const slamT = easeOutQuart(norm(elapsed, 0, 750));
-    // overshoot bounce
-    let iconX;
-    if (elapsed < 750) {
-      iconX = lerp(140, 0, slamT);
-    } else if (elapsed < 900) {
-      const bounceT = norm(elapsed, 750, 900);
-      iconX = lerp(0, -5, easeInOutQuad(bounceT));
-    } else if (elapsed < 1050) {
-      const settleT = norm(elapsed, 900, 1050);
-      iconX = lerp(-5, 0, easeOutQuart(settleT));
-    } else {
-      iconX = 0;
+<!-- ── Animation engine (animations.jsx inlined) ────────────────── -->
+<script type="text/babel">
+const Easing = {
+  linear: (t) => t,
+  easeInQuad:    (t) => t * t,
+  easeOutQuad:   (t) => t * (2 - t),
+  easeInOutQuad: (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+  easeInCubic:    (t) => t * t * t,
+  easeOutCubic:   (t) => (--t) * t * t + 1,
+  easeInOutCubic: (t) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1),
+  easeInQuart:    (t) => t * t * t * t,
+  easeOutQuart:   (t) => 1 - (--t) * t * t * t,
+  easeInOutQuart: (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t),
+  easeInExpo:  (t) => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1))),
+  easeOutExpo: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+  easeInOutExpo: (t) => {
+    if (t === 0) return 0; if (t === 1) return 1;
+    if (t < 0.5) return 0.5 * Math.pow(2, 20 * t - 10);
+    return 1 - 0.5 * Math.pow(2, -20 * t + 10);
+  },
+  easeInSine:    (t) => 1 - Math.cos((t * Math.PI) / 2),
+  easeOutSine:   (t) => Math.sin((t * Math.PI) / 2),
+  easeInOutSine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+  easeOutBack: (t) => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); },
+  easeInBack:  (t) => { const c1=1.70158,c3=c1+1; return c3*t*t*t-c1*t*t; },
+  easeInOutBack: (t) => {
+    const c1=1.70158,c2=c1*1.525;
+    return t<0.5?(Math.pow(2*t,2)*((c2+1)*2*t-c2))/2:(Math.pow(2*t-2,2)*((c2+1)*(t*2-2)+c2)+2)/2;
+  },
+  easeOutElastic: (t) => {
+    const c4=(2*Math.PI)/3;
+    if(t===0)return 0; if(t===1)return 1;
+    return Math.pow(2,-10*t)*Math.sin((t*10-0.75)*c4)+1;
+  },
+};
+const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
+function interpolate(input,output,ease=Easing.linear){
+  return(t)=>{
+    if(t<=input[0])return output[0];
+    if(t>=input[input.length-1])return output[output.length-1];
+    for(let i=0;i<input.length-1;i++){
+      if(t>=input[i]&&t<=input[i+1]){
+        const span=input[i+1]-input[i];
+        const local=span===0?0:(t-input[i])/span;
+        const easeFn=Array.isArray(ease)?(ease[i]||Easing.linear):ease;
+        return output[i]+(output[i+1]-output[i])*easeFn(local);
+      }
     }
-    iconBlack.style.transform = `translateX(${-iconX}px)`;
-    iconBlue.style.transform  = `translateX(${iconX}px)`;
+    return output[output.length-1];
+  };
+}
+function animate({from=0,to=1,start=0,end=1,ease=Easing.easeInOutCubic}){
+  return(t)=>{
+    if(t<=start)return from; if(t>=end)return to;
+    return from+(to-from)*ease((t-start)/(end-start));
+  };
+}
+const TimelineContext = React.createContext({time:0,duration:10,playing:false});
+const useTime = () => React.useContext(TimelineContext).time;
+const useTimeline = () => React.useContext(TimelineContext);
+const SpriteContext = React.createContext({localTime:0,progress:0,duration:0});
+const useSprite = () => React.useContext(SpriteContext);
+function Sprite({start=0,end=Infinity,children,keepMounted=false}){
+  const {time}=useTimeline();
+  const visible=time>=start&&time<=end;
+  if(!visible&&!keepMounted)return null;
+  const dur=end-start;
+  const localTime=Math.max(0,time-start);
+  const progress=dur>0&&isFinite(dur)?clamp(localTime/dur,0,1):0;
+  const value={localTime,progress,duration:dur,visible};
+  return <SpriteContext.Provider value={value}>{typeof children==='function'?children(value):children}</SpriteContext.Provider>;
+}
 
-    // Fade icon halves in as they come in
-    const iconFade = clamp(elapsed / 300, 0, 1);
-    iconBlack.style.opacity = iconFade;
-    iconBlue.style.opacity  = iconFade;
+/* AutoplayStage — Stage without playback controls, for production hero */
+function AutoplayStage({width,height,duration,background='#F7FAFC',loop=true,children}){
+  const [time,setTime]=React.useState(0);
+  const [scale,setScale]=React.useState(1);
+  const ref=React.useRef(null);
+  const raf=React.useRef(null);
+  const last=React.useRef(null);
+  React.useEffect(()=>{
+    if(!ref.current)return;
+    const el=ref.current;
+    const measure=()=>setScale(Math.max(0.05,Math.min(el.clientWidth/width,el.clientHeight/height)));
+    measure();
+    const ro=new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize',measure);
+    return()=>{ro.disconnect();window.removeEventListener('resize',measure);};
+  },[width,height]);
+  React.useEffect(()=>{
+    const step=ts=>{
+      if(last.current==null)last.current=ts;
+      const dt=(ts-last.current)/1000;
+      last.current=ts;
+      setTime(t=>{const n=t+dt;return n>=duration?(loop?n%duration:duration):n;});
+      raf.current=requestAnimationFrame(step);
+    };
+    raf.current=requestAnimationFrame(step);
+    return()=>{cancelAnimationFrame(raf.current);last.current=null;};
+  },[duration,loop]);
+  const ctx=React.useMemo(()=>({time,duration,playing:true,setTime:()=>{},setPlaying:()=>{}}),[time,duration]);
+  return(
+    <div ref={ref} style={{position:'absolute',inset:0,background,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+      <div style={{width,height,background,position:'relative',transform:`scale(${scale})`,transformOrigin:'center',flexShrink:0,overflow:'hidden'}}>
+        <TimelineContext.Provider value={ctx}>{children}</TimelineContext.Provider>
+      </div>
+    </div>
+  );
+}
+Object.assign(window,{Easing,interpolate,animate,clamp,TimelineContext,useTime,useTimeline,Sprite,SpriteContext,useSprite,AutoplayStage});
+</script>
 
-    // Phase 2 (750ms+): wordmark slides in
-    const wmT = easeOutExpo(norm(elapsed, 750, 1300));
-    wordmark.style.opacity   = wmT;
-    wordmark.style.transform = `translateX(${lerp(24, 0, wmT)}px)`;
+<!-- ── Hero scene (hero.jsx inlined) ────────────────────────────── -->
+<script type="text/babel">
+const BRAND={
+  nearBlack:'#0B0B0C',arcticBlue:'#0077C8',glacialCyan:'#39D5FF',
+  deepNavy:'#071E33',graphite:'#25282B',frostGray:'#DDE5EA',
+  frostGrayDk:'#C5D2DB',frostWhite:'#F7FAFC',
+};
+const HELV='"Helvetica Neue",Helvetica,Arial,sans-serif';
+const MONO='"JetBrains Mono",ui-monospace,SFMono-Regular,monospace';
+const LOCKUP={
+  left:230,top:300,
+  icon:{x:230,y:300,w:380,h:272},
+  magna:{x:685,y:300,w:1045,h:139},
+  therma:{x:685,y:464,w:473,h:108},
+};
+const ICON_CX=LOCKUP.icon.x+LOCKUP.icon.w/2;
+const ICON_CY=LOCKUP.icon.y+LOCKUP.icon.h/2;
 
-    // Phase 3 (1100ms+): headline
-    const hlT = easeOutExpo(norm(elapsed, 1100, 1650));
-    headline.style.opacity   = hlT;
-    headline.style.transform = `translateY(${lerp(12, 0, hlT)}px)`;
+function Schematic({gridA=0,bracketsA=0,ticksA=0,labelsA=0,fadeOut=0}){
+  const topTicks=[];
+  for(let x=160;x<=1760;x+=80)topTicks.push(x);
+  const sideTicks=[];
+  for(let y=160;y<=920;y+=80)sideTicks.push(y);
+  const tickAt=(i)=>Math.max(0,Math.min(1,(ticksA*(topTicks.length+6)-i)/1.5));
+  const alpha=1-fadeOut;
+  return(
+    <div style={{position:'absolute',inset:0,pointerEvents:'none',opacity:alpha}}>
+      <svg width="1920" height="1080" style={{position:'absolute',inset:0}}>
+        <g opacity={gridA*0.7} stroke={BRAND.frostGray} strokeWidth="1">
+          {[240,480,720,1200,1440,1680].map(x=><line key={'v'+x} x1={x} y1="60" x2={x} y2="1020"/>)}
+          {[270,540,810].map(y=><line key={'h'+y} x1="60" y1={y} x2="1860" y2={y}/>)}
+        </g>
+        <rect x="60" y="60" width="1800" height="960" fill="none" stroke={BRAND.frostGrayDk} strokeWidth="1" opacity={gridA*0.9}/>
+        <g stroke={BRAND.nearBlack} strokeWidth="2" fill="none" strokeLinecap="square">
+          {[
+            {d:'M 100 60 L 60 60 L 60 100',i:0},
+            {d:'M 1820 60 L 1860 60 L 1860 100',i:1},
+            {d:'M 100 1020 L 60 1020 L 60 980',i:2},
+            {d:'M 1820 1020 L 1860 1020 L 1860 980',i:3},
+          ].map(b=>{const a=Math.max(0,Math.min(1,bracketsA*4-b.i));return <path key={b.i} d={b.d} opacity={a}/>;})
+          }
+        </g>
+        <g stroke={BRAND.nearBlack} strokeWidth="1">
+          {topTicks.map((x,i)=>{const a=tickAt(i);const tall=(i%5===0);return <line key={'tt'+i} x1={x} y1="60" x2={x} y2={60+(tall?16:8)} opacity={a}/>;})}</g>
+        <g stroke={BRAND.nearBlack} strokeWidth="1">
+          {sideTicks.map((y,i)=>{const a=tickAt(i+6);const tall=(i%4===0);return <line key={'rt'+i} x1="1860" y1={y} x2={1860-(tall?16:8)} y2={y} opacity={a}/>;})}</g>
+        <g fill={BRAND.nearBlack} fontFamily={MONO} fontSize="11" letterSpacing="0.16em" opacity={labelsA}>
+          <text x="320" y="50" textAnchor="middle">0240</text>
+          <text x="640" y="50" textAnchor="middle">0560</text>
+          <text x="960" y="50" textAnchor="middle">0880</text>
+          <text x="1280" y="50" textAnchor="middle">1200</text>
+          <text x="1600" y="50" textAnchor="middle">1520</text>
+        </g>
+        <g opacity={labelsA} fill={BRAND.nearBlack} fontFamily={MONO} fontSize="10" letterSpacing="0.18em">
+          <text x={ICON_CX} y="50" textAnchor="middle">— ICON C/L</text>
+          <text x="1860" y={ICON_CY+4} textAnchor="end">C/L —</text>
+        </g>
+        <g stroke={BRAND.arcticBlue} strokeWidth="1.5" fill="none" strokeLinecap="square" opacity={labelsA}>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-24} L ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-12}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-24} L ${LOCKUP.icon.x-12} ${LOCKUP.icon.y-24}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-24} L ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-12}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-24} L ${LOCKUP.magna.x+LOCKUP.magna.w+12} ${LOCKUP.icon.y-24}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+12}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.icon.x-12} ${LOCKUP.icon.y+LOCKUP.icon.h+24}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+12}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.magna.x+LOCKUP.magna.w+12} ${LOCKUP.icon.y+LOCKUP.icon.h+24}`}/>
+        </g>
+      </svg>
+      <ChromeLabel x={60}   y={36}   align="left"  text="MAGNA THERMA / CRYO INDUSTRIAL" opacity={labelsA}/>
+      <ChromeLabel x={1860} y={36}   align="right" text="V01 · 2026"                     opacity={labelsA}/>
+      <ChromeLabel x={60}   y={1052} align="left"  text="FRAME 1920 × 1080 · 16:9"       opacity={labelsA}/>
+      <ChromeLabel x={1860} y={1052} align="right" text="ENGINEERED FOR THERMAL PERFORMANCE" opacity={labelsA}/>
+    </div>
+  );
+}
+function ChromeLabel({x,y,align,text,opacity=1,color=BRAND.nearBlack}){
+  return(
+    <div style={{position:'absolute',left:align==='right'?undefined:x,right:align==='right'?1920-x:undefined,top:y,transform:'translateY(-50%)',fontFamily:MONO,fontSize:11,fontWeight:500,color,letterSpacing:'0.22em',opacity,whiteSpace:'nowrap'}}>{text}</div>
+  );
+}
+function Crosshair({vDraw=0,hDraw=0,glow=0,color=BRAND.arcticBlue}){
+  const vLen=220,hLen=260;
+  return(
+    <svg width="1920" height="1080" style={{position:'absolute',inset:0,pointerEvents:'none'}}>
+      <line x1={ICON_CX} y1={ICON_CY-vLen*vDraw} x2={ICON_CX} y2={ICON_CY+vLen*vDraw} stroke={color} strokeWidth="1"/>
+      <line x1={ICON_CX-hLen*hDraw} y1={ICON_CY} x2={ICON_CX+hLen*hDraw} y2={ICON_CY} stroke={color} strokeWidth="1"/>
+      {glow>0&&<circle cx={ICON_CX} cy={ICON_CY} r={6+22*(1-glow)} fill="none" stroke={BRAND.glacialCyan} strokeWidth="1.5" opacity={glow}/>}
+      {glow>0&&<circle cx={ICON_CX} cy={ICON_CY} r="3" fill={BRAND.arcticBlue} opacity={glow}/>}
+    </svg>
+  );
+}
+function HeroLoop(){
+  const t=useTime();
+  const hitTime=4.62;
+  const shakeProg=Math.max(0,Math.min(1,(t-hitTime)/0.22));
+  const shakeX=shakeProg<1?Math.sin(shakeProg*Math.PI*7)*(1-shakeProg)*6:0;
+  const shakeY=shakeProg<1?Math.cos(shakeProg*Math.PI*9)*(1-shakeProg)*2:0;
+  const schematicFadeOut=animate({from:0,to:1,start:10.6,end:11.6,ease:Easing.easeInQuad})(t);
+  const gridA    =animate({from:0,to:1,start:0.6,end:1.6,ease:Easing.easeOutQuad})(t);
+  const bracketsA=animate({from:0,to:1,start:1.0,end:2.2,ease:Easing.easeOutQuart})(t);
+  const ticksA   =animate({from:0,to:1,start:1.4,end:2.7,ease:Easing.linear})(t);
+  const labelsA  =animate({from:0,to:1,start:1.8,end:2.6,ease:Easing.easeOutQuad})(t);
+  const vDraw=animate({from:0,to:1,start:2.4,end:3.0,ease:Easing.easeOutExpo})(t);
+  const hDraw=animate({from:0,to:1,start:2.9,end:3.5,ease:Easing.easeOutExpo})(t);
+  const crossGlow=animate({from:0,to:1,start:3.6,end:4.0,ease:Easing.easeOutCubic})(t)
+                 -animate({from:0,to:1,start:4.0,end:4.5,ease:Easing.easeInCubic})(t);
+  const slamL=interpolate(
+    [0,4.0,4.55,4.7,4.85,5.05],
+    [-2000,-2000,8,-3,1,0],
+    [Easing.linear,Easing.easeOutQuart,Easing.easeOutQuad,Easing.easeInOutQuad,Easing.easeOutQuad,Easing.linear]
+  )(t);
+  const slamR=-slamL;
+  const exitL=animate({from:0,to:-2000,start:10.8,end:11.6,ease:Easing.easeInQuart})(t);
+  const exitR=-exitL;
+  const leftOffset=slamL+exitL;
+  const rightOffset=slamR+exitR;
+  const iconOpacity=1-animate({from:0,to:1,start:11.0,end:11.7,ease:Easing.easeInQuad})(t);
+  const flashIn =animate({from:0,to:1,start:4.55,end:4.72,ease:Easing.easeOutQuad})(t);
+  const flashOut=animate({from:0,to:1,start:4.72,end:5.25,ease:Easing.easeInQuad})(t);
+  const flashA=Math.max(0,flashIn-flashOut);
+  const magnaEntry=animate({from:0,to:1,start:5.1,end:5.7,ease:Easing.easeOutQuart})(t);
+  const magnaExit =animate({from:0,to:1,start:10.9,end:11.5,ease:Easing.easeInQuad})(t);
+  const magnaA=Math.max(0,magnaEntry-magnaExit);
+  const magnaX=(1-magnaEntry)*80;
+  const thermaEntry=animate({from:0,to:1,start:5.6,end:6.2,ease:Easing.easeOutQuart})(t);
+  const thermaExit =animate({from:0,to:1,start:10.9,end:11.5,ease:Easing.easeInQuad})(t);
+  const thermaA=Math.max(0,thermaEntry-thermaExit);
+  const thermaX=(1-thermaEntry)*60;
+  const ruleEntry=animate({from:0,to:1,start:6.4,end:7.0,ease:Easing.easeOutExpo})(t);
+  const ruleExit =animate({from:0,to:1,start:10.8,end:11.4,ease:Easing.easeInQuad})(t);
+  const ruleA=Math.max(0,ruleEntry-ruleExit);
+  const tagEntry=animate({from:0,to:1,start:6.9,end:7.55,ease:Easing.easeOutQuart})(t);
+  const tagExit =animate({from:0,to:1,start:10.7,end:11.3,ease:Easing.easeInQuad})(t);
+  const tagA=Math.max(0,tagEntry-tagExit);
+  const tagY0=(1-tagEntry)*-18;
+  const supportEntry=animate({from:0,to:1,start:7.7,end:8.4,ease:Easing.easeOutCubic})(t);
+  const supportExit =animate({from:0,to:1,start:10.6,end:11.2,ease:Easing.easeInQuad})(t);
+  const supportA=Math.max(0,supportEntry-supportExit);
+  const ambient=(t>5.5&&t<11)?0.5+0.5*Math.sin((t-5.5)*Math.PI*0.9):0;
+  const cx=960;
+  const ruleY=LOCKUP.icon.y+LOCKUP.icon.h+70;
+  const tagY_pos=ruleY+36;
+  const supportY=tagY_pos+78;
+  return(
+    <div style={{position:'absolute',inset:0,transform:`translate(${shakeX}px,${shakeY}px)`,willChange:'transform'}}>
+      <Schematic gridA={gridA} bracketsA={bracketsA} ticksA={ticksA} labelsA={labelsA} fadeOut={schematicFadeOut}/>
+      <Crosshair vDraw={vDraw} hDraw={hDraw} glow={Math.max(0,crossGlow)}/>
+      <div style={{position:'absolute',left:LOCKUP.icon.x,top:LOCKUP.icon.y,width:LOCKUP.icon.w,height:LOCKUP.icon.h,opacity:iconOpacity}}>
+        <img src="assets/icon-black.png" alt="" draggable={false} style={{position:'absolute',inset:0,width:'100%',height:'100%',transform:`translateX(${leftOffset}px)`,willChange:'transform'}}/>
+        <img src="assets/icon-blue.png"  alt="" draggable={false} style={{position:'absolute',inset:0,width:'100%',height:'100%',transform:`translateX(${rightOffset}px)`,willChange:'transform'}}/>
+        {flashA>0&&<div style={{position:'absolute',left:'-6%',top:'40%',width:'112%',height:2,background:`linear-gradient(90deg,transparent 0%,${BRAND.glacialCyan} 30%,${BRAND.glacialCyan} 70%,transparent 100%)`,opacity:flashA,boxShadow:`0 0 16px ${BRAND.glacialCyan}`}}/>}
+      </div>
+      <img src="assets/magna.png"  alt="" draggable={false} style={{position:'absolute',left:LOCKUP.magna.x,top:LOCKUP.magna.y,width:LOCKUP.magna.w,height:LOCKUP.magna.h,opacity:magnaA,transform:`translateX(${magnaX}px)`,willChange:'transform,opacity'}}/>
+      <img src="assets/therma.png" alt="" draggable={false} style={{position:'absolute',left:LOCKUP.therma.x,top:LOCKUP.therma.y,width:LOCKUP.therma.w,height:LOCKUP.therma.h,opacity:thermaA,transform:`translateX(${thermaX}px)`,willChange:'transform,opacity'}}/>
+      <div style={{position:'absolute',left:cx-(ruleA*200),top:ruleY,width:ruleA*400,height:1,background:BRAND.arcticBlue,opacity:ruleA}}/>
+      <div style={{position:'absolute',left:cx+200-1,top:ruleY-4,width:2,height:9,background:BRAND.glacialCyan,opacity:ruleA}}/>
+      <div style={{position:'absolute',left:cx-200-1,top:ruleY-4,width:2,height:9,background:BRAND.glacialCyan,opacity:ruleA*ambient*0.9}}/>
+      <div style={{position:'absolute',left:0,right:0,top:tagY_pos,textAlign:'center',opacity:tagA,transform:`translateY(${tagY0}px)`,fontFamily:HELV,fontWeight:700,fontSize:42,letterSpacing:'-0.005em',color:BRAND.nearBlack,lineHeight:1.1}}>Engineered for Thermal Performance.</div>
+      <div style={{position:'absolute',left:0,right:0,top:supportY,textAlign:'center',opacity:supportA,fontFamily:HELV,fontWeight:400,fontSize:22,letterSpacing:'0.04em',color:BRAND.graphite,lineHeight:1.2}}>Built for controlled thermal output.</div>
+    </div>
+  );
+}
+Object.assign(window,{BRAND,LOCKUP,ICON_CX,ICON_CY,Schematic,ChromeLabel,Crosshair,HeroLoop});
+</script>
 
-    // Phase 4 (1400ms+): sub
-    const subT = easeOutExpo(norm(elapsed, 1400, 1900));
-    sub.style.opacity   = subT;
-    sub.style.transform = `translateY(${lerp(8, 0, subT)}px)`;
+<!-- ── Mount hero animation + page utilities ────────────────────── -->
+<script type="text/babel">
+// Mount the hero loop — uses AutoplayStage (no playback bar)
+const heroRoot = document.getElementById('hero-anim-root');
+if (heroRoot) {
+  ReactDOM.createRoot(heroRoot).render(
+    <AutoplayStage width={1920} height={1080} duration={12} background={BRAND.frostWhite} loop={true}>
+      <HeroLoop />
+    </AutoplayStage>
+  );
+}
 
-    // Phase 5 (1700ms+): actions
-    const actT = clamp(norm(elapsed, 1700, 2100), 0, 1);
-    actions.style.opacity = actT;
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => io.observe(el));
 
-    if (elapsed < DURATION + 200) {
-      requestAnimationFrame(tick);
+// Nav active state
+const navLinks = document.querySelectorAll('.nav-links a');
+const scrollSpy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.style.color = '');
+      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (active) active.style.color = 'rgba(247,250,252,1)';
     }
-  }
-
-  // Delay start slightly so page has painted
-  setTimeout(() => requestAnimationFrame(tick), 200);
-
-  // Schematic element fade-in
-  setTimeout(() => {
-    ['hero-brackets','hero-label-left','hero-label-right','hero-label-bottom'].forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (el) {
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.8s ease';
-          el.style.opacity = '1';
-        }, i * 120);
-      }
-    });
-  }, 400);
-
-  // ── Scroll reveal ────────────────────────────────────────────────
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  revealEls.forEach(el => io.observe(el));
-
-  // ── Nav active state ─────────────────────────────────────────────
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const scrollSpy = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navLinks.forEach(l => l.style.color = '');
-        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-        if (active) active.style.color = 'rgba(247,250,252,1)';
-      }
-    });
-  }, { rootMargin: '-40% 0px -40% 0px' });
-  sections.forEach(s => scrollSpy.observe(s));
-})();
+  });
+}, { rootMargin: '-40% 0px -40% 0px' });
+document.querySelectorAll('section[id]').forEach(s => scrollSpy.observe(s));
 </script>
 </body>
 </html>
