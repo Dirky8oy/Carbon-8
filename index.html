@@ -1342,7 +1342,7 @@ function HeroLoop(){
   const shakeProg=Math.max(0,Math.min(1,(t-hitTime)/0.22));
   const shakeX=shakeProg<1?Math.sin(shakeProg*Math.PI*7)*(1-shakeProg)*6:0;
   const shakeY=shakeProg<1?Math.cos(shakeProg*Math.PI*9)*(1-shakeProg)*2:0;
-  const schematicFadeOut=animate({from:0,to:1,start:10.6,end:11.6,ease:Easing.easeInQuad})(t);
+  const schematicFadeOut=animate({from:0,to:1,start:13.4,end:14.4,ease:Easing.easeInQuad})(t);
   const gridA    =animate({from:0,to:1,start:0.6,end:1.6,ease:Easing.easeOutQuad})(t);
   const bracketsA=animate({from:0,to:1,start:1.0,end:2.2,ease:Easing.easeOutQuart})(t);
   const ticksA   =animate({from:0,to:1,start:1.4,end:2.7,ease:Easing.linear})(t);
@@ -1357,33 +1357,33 @@ function HeroLoop(){
     [Easing.linear,Easing.easeOutQuart,Easing.easeOutQuad,Easing.easeInOutQuad,Easing.easeOutQuad,Easing.linear]
   )(t);
   const slamR=-slamL;
-  const exitL=animate({from:0,to:-2000,start:10.8,end:11.6,ease:Easing.easeInQuart})(t);
+  const exitL=animate({from:0,to:-2000,start:13.6,end:14.4,ease:Easing.easeInQuart})(t);
   const exitR=-exitL;
   const leftOffset=slamL+exitL;
   const rightOffset=slamR+exitR;
-  const iconOpacity=1-animate({from:0,to:1,start:11.0,end:11.7,ease:Easing.easeInQuad})(t);
+  const iconOpacity=1-animate({from:0,to:1,start:13.8,end:14.5,ease:Easing.easeInQuad})(t);
   const flashIn =animate({from:0,to:1,start:4.55,end:4.72,ease:Easing.easeOutQuad})(t);
   const flashOut=animate({from:0,to:1,start:4.72,end:5.25,ease:Easing.easeInQuad})(t);
   const flashA=Math.max(0,flashIn-flashOut);
   const magnaEntry=animate({from:0,to:1,start:5.1,end:5.7,ease:Easing.easeOutQuart})(t);
-  const magnaExit =animate({from:0,to:1,start:10.9,end:11.5,ease:Easing.easeInQuad})(t);
+  const magnaExit =animate({from:0,to:1,start:13.7,end:14.3,ease:Easing.easeInQuad})(t);
   const magnaA=Math.max(0,magnaEntry-magnaExit);
   const magnaX=(1-magnaEntry)*80;
   const thermaEntry=animate({from:0,to:1,start:5.6,end:6.2,ease:Easing.easeOutQuart})(t);
-  const thermaExit =animate({from:0,to:1,start:10.9,end:11.5,ease:Easing.easeInQuad})(t);
+  const thermaExit =animate({from:0,to:1,start:13.7,end:14.3,ease:Easing.easeInQuad})(t);
   const thermaA=Math.max(0,thermaEntry-thermaExit);
   const thermaX=(1-thermaEntry)*60;
   const ruleEntry=animate({from:0,to:1,start:6.4,end:7.0,ease:Easing.easeOutExpo})(t);
-  const ruleExit =animate({from:0,to:1,start:10.8,end:11.4,ease:Easing.easeInQuad})(t);
+  const ruleExit =animate({from:0,to:1,start:13.6,end:14.2,ease:Easing.easeInQuad})(t);
   const ruleA=Math.max(0,ruleEntry-ruleExit);
   const tagEntry=animate({from:0,to:1,start:6.9,end:7.55,ease:Easing.easeOutQuart})(t);
-  const tagExit =animate({from:0,to:1,start:10.7,end:11.3,ease:Easing.easeInQuad})(t);
+  const tagExit =animate({from:0,to:1,start:13.5,end:14.1,ease:Easing.easeInQuad})(t);
   const tagA=Math.max(0,tagEntry-tagExit);
   const tagY0=(1-tagEntry)*-18;
   const supportEntry=animate({from:0,to:1,start:7.7,end:8.4,ease:Easing.easeOutCubic})(t);
-  const supportExit =animate({from:0,to:1,start:10.6,end:11.2,ease:Easing.easeInQuad})(t);
+  const supportExit =animate({from:0,to:1,start:13.4,end:14.0,ease:Easing.easeInQuad})(t);
   const supportA=Math.max(0,supportEntry-supportExit);
-  const ambient=(t>5.5&&t<11)?0.5+0.5*Math.sin((t-5.5)*Math.PI*0.9):0;
+  const ambient=(t>5.5&&t<13.3)?0.5+0.5*Math.sin((t-5.5)*Math.PI*0.9):0;
   const cx=960;
   const ruleY=LOCKUP.icon.y+LOCKUP.icon.h+70;
   const tagY_pos=ruleY+36;
@@ -1416,7 +1416,7 @@ Object.assign(window,{BRAND,LOCKUP,ICON_CX,ICON_CY,Schematic,ChromeLabel,Crossha
 const heroRoot = document.getElementById('hero-anim-root');
 if (heroRoot) {
   ReactDOM.createRoot(heroRoot).render(
-    <AutoplayStage width={1920} height={1080} duration={9} background={BRAND.frostWhite} loop={false}>
+    <AutoplayStage width={1920} height={1080} duration={15} background={BRAND.frostWhite} loop={true}>
       <HeroLoop />
     </AutoplayStage>
   );
