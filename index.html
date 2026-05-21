@@ -116,7 +116,7 @@ body {
   z-index: 10;
   pointer-events: none;
   opacity: 0;
-  animation: hint-fade-in 1s ease 9s forwards;
+  animation: hint-fade-in 1s ease 8.5s forwards;
 }
 @keyframes hint-fade-in { to { opacity: 1; } }
 .hero-scroll-label {
@@ -132,7 +132,7 @@ body {
   height: 28px;
   background: var(--arctic-blue);
   opacity: 0.5;
-  animation: scroll-drop 1.8s ease-in-out 9s infinite;
+  animation: scroll-drop 1.8s ease-in-out 8.5s infinite;
   transform-origin: top center;
 }
 @keyframes scroll-drop {
@@ -1416,7 +1416,7 @@ Object.assign(window,{BRAND,LOCKUP,ICON_CX,ICON_CY,Schematic,ChromeLabel,Crossha
 const heroRoot = document.getElementById('hero-anim-root');
 if (heroRoot) {
   ReactDOM.createRoot(heroRoot).render(
-    <AutoplayStage width={1920} height={1080} duration={12} background={BRAND.frostWhite} loop={true}>
+    <AutoplayStage width={1920} height={1080} duration={9} background={BRAND.frostWhite} loop={false}>
       <HeroLoop />
     </AutoplayStage>
   );
