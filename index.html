@@ -50,12 +50,10 @@ body {
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 0;
   text-decoration: none;
   flex-shrink: 0;
 }
-.nav-logo img { display: block; }
-.nav-logo-icon { height: 36px; width: auto; }
+.nav-logo svg { display: block; overflow: visible; }
 
 .nav-links {
   display: flex;
@@ -777,8 +775,39 @@ body {
 
 <!-- ── Navigation ──────────────────────────────────────────────── -->
 <nav class="nav">
-  <a href="#" class="nav-logo">
-    <img src="assets/icon-full.png" alt="MAGNA therma" class="nav-logo-icon">
+  <a href="#" class="nav-logo" aria-label="MAGNA therma — home">
+    <!-- Full horizontal lockup: icon halves + MAGNA + therma wordmarks, rendered for dark nav -->
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Invert filter: converts near-black content to white, preserves alpha -->
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix"
+            values="-1 0 0 0 1
+                     0 -1 0 0 1
+                     0  0 -1 0 1
+                     0  0  0 1 0"/>
+        </filter>
+      </defs>
+      <!-- Icon — black half (inverted → white on dark nav) -->
+      <image href="assets/icon-black.png"
+        x="0" y="0" width="50" height="36"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMidYMid meet"/>
+      <!-- Icon — blue half (no filter; blue reads fine on dark) -->
+      <image href="assets/icon-blue.png"
+        x="0" y="0" width="50" height="36"
+        preserveAspectRatio="xMidYMid meet"/>
+      <!-- MAGNA wordmark (inverted → white) top-aligned with icon -->
+      <image href="assets/magna.png"
+        x="60" y="0" width="138" height="18"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMinYMin meet"/>
+      <!-- therma wordmark (inverted → white) bottom-aligned with icon -->
+      <image href="assets/therma.png"
+        x="60" y="22" width="63" height="14"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMinYMin meet"/>
+    </svg>
   </a>
   <ul class="nav-links">
     <li><a href="#technology">Technology</a></li>
@@ -824,12 +853,12 @@ body {
     <!-- Logo lockup with animation -->
     <div class="hero-lockup" id="hero-lockup">
       <div class="hero-icon-wrap" id="hero-icon-wrap">
-        <img src="assets/icon-black.png" alt="" class="hero-icon-half" id="icon-black" draggable="false">
+        <img src="assets/icon-black.png" alt="" class="hero-icon-half" id="icon-black" draggable="false" style="filter:invert(1)">
         <img src="assets/icon-blue.png"  alt="" class="hero-icon-half" id="icon-blue"  draggable="false">
       </div>
       <div class="hero-wordmark-group" id="hero-wordmark">
-        <img src="assets/magna.png"  alt="MAGNA" class="hero-magna"  draggable="false">
-        <img src="assets/therma.png" alt="therma" class="hero-therma" draggable="false">
+        <img src="assets/magna.png"  alt="MAGNA" class="hero-magna"  draggable="false" style="filter:invert(1)">
+        <img src="assets/therma.png" alt="therma" class="hero-therma" draggable="false" style="filter:invert(1)">
       </div>
     </div>
 
@@ -1194,7 +1223,18 @@ body {
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-brand-logo">
-        <img src="assets/icon-full.png" alt="MAGNA therma" style="height:30px;width:auto;">
+        <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="footer-to-white" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix"
+                values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+            </filter>
+          </defs>
+          <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#footer-to-white)" preserveAspectRatio="xMidYMid meet"/>
+          <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+          <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+          <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+        </svg>
       </div>
       <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
     </div>
