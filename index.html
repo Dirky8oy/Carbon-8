@@ -335,35 +335,40 @@ body {
 
 /* ── Applications ────────────────────────────────────────────── */
 .applications {
-  background: var(--frost-white);
+  background: var(--near-black);
   padding: 120px 80px;
 }
 
 .applications-header {
   margin-bottom: 64px;
 }
+.applications-header .section-label { color: var(--arctic-blue); }
+.applications-header .section-label::before { background: var(--arctic-blue); }
+.applications-header .section-heading { color: var(--frost-white); }
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: var(--frost-gray);
-  border: 1px solid var(--frost-gray);
+  background: rgba(221,229,234,0.08);
+  border: 1px solid rgba(221,229,234,0.08);
 }
 
 .app-card {
-  background: var(--frost-white);
-  padding: 56px 48px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: start;
-  transition: background 200ms;
+  background: var(--near-black);
+  padding: 40px 36px 44px;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid transparent;
+  transition: background 200ms, border-color 200ms;
   cursor: default;
 }
-.app-card:hover { background: #f0f4f7; }
+.app-card:hover {
+  background: rgba(0,119,200,0.07);
+  border-left-color: var(--arctic-blue);
+}
 
-.app-card-content {}
+.app-card-content { flex: 1; }
 .app-card-num {
   font-family: var(--mono);
   font-size: 10px;
@@ -372,34 +377,19 @@ body {
   margin-bottom: 20px;
 }
 .app-card-title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--near-black);
+  margin-bottom: 14px;
+  color: var(--frost-white);
+  line-height: 1.25;
 }
 .app-card-body {
-  font-size: 15px;
-  line-height: 1.65;
-  color: #555;
-  max-width: 360px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.6);
 }
 
-.app-card-arrow {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--frost-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--near-black);
-  flex-shrink: 0;
-  transition: border-color 200ms, background 200ms, color 200ms;
-}
-.app-card:hover .app-card-arrow {
-  border-color: var(--arctic-blue);
-  background: var(--arctic-blue);
-  color: var(--frost-white);
-}
+.app-card-arrow { display: none; }
 
 /* ── Specifications ──────────────────────────────────────────── */
 .specifications {
@@ -658,7 +648,7 @@ body {
   .nav-links { gap: 32px; }
   .tech-header, .spec-header, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
   .tech-cards, .metrics-grid { grid-template-columns: 1fr 1fr; }
-  .app-grid { grid-template-columns: 1fr; }
+  .app-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 48px; }
 }
 @media (max-width: 768px) {
@@ -1328,7 +1318,7 @@ function AutoplayStage({width,height,duration,background='#F7FAFC',loop=true,chi
   React.useEffect(()=>{
     if(!ref.current)return;
     const el=ref.current;
-    const measure=()=>setScale(Math.max(0.05,Math.min(el.clientWidth/width,el.clientHeight/height)));
+    const measure=()=>setScale(Math.max(0.05,el.clientWidth/width));
     measure();
     const ro=new ResizeObserver(measure);
     ro.observe(el);
