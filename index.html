@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MAGNA therma — Engineered for Relentless Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --near-black:   #0B0B0C;
+  --arctic-blue:  #0077C8;
+  --glacial-cyan: #39D5FF;
+  --deep-navy:    #071E33;
+  --graphite:     #25282B;
+  --frost-gray:   #DDE5EA;
+  --frost-white:  #F7FAFC;
+  --thermal-copper: #C76A32;
+  --helv: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--helv);
+  background: var(--frost-white);
+  color: var(--near-black);
+  overflow-x: hidden;
+}
+
+/* ── Nav ──────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 72px;
+  background: rgba(7, 30, 51, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo svg { display: block; overflow: visible; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--helv);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247,250,252,0.7);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.nav-links a:hover { color: var(--frost-white); }
+
+.nav-cta {
+  font-family: var(--helv);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--frost-white);
+  background: var(--arctic-blue);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.nav-cta:hover { background: #0066aa; }
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: #F7FAFC; /* matches animation canvas colour */
+}
+#hero-anim-root {
+  position: absolute;
+  inset: 0;
+}
+
+/* Scroll hint — appears after animation settles */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  animation: hint-fade-in 1s ease 8.5s forwards;
+}
+@keyframes hint-fade-in { to { opacity: 1; } }
+.hero-scroll-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  color: var(--near-black);
+  opacity: 0.45;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 28px;
+  background: var(--arctic-blue);
+  opacity: 0.5;
+  animation: scroll-drop 1.8s ease-in-out 8.5s infinite;
+  transform-origin: top center;
+}
+@keyframes scroll-drop {
+  0%,100% { transform: scaleY(1); opacity: 0.4; }
+  50%      { transform: scaleY(1.3); opacity: 0.75; }
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--arctic-blue);
+  color: var(--frost-white);
+  font-family: var(--helv);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 200ms;
+}
+.btn-primary:hover { background: #0066aa; }
+
+.btn-outline {
+  display: inline-block;
+  padding: 13px 31px;
+  background: transparent;
+  color: var(--frost-white);
+  font-family: var(--helv);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid rgba(247,250,252,0.35);
+  cursor: pointer;
+  transition: border-color 200ms, color 200ms;
+}
+.btn-outline:hover { border-color: var(--frost-white); }
+
+/* ── Section commons ─────────────────────────────────────────── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+}
+
+.section-heading {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.01em;
+}
+
+/* ── Technology Section ────────────────────────────────────────── */
+.technology {
+  background: var(--frost-white);
+  padding: 120px 80px;
+}
+
+.tech-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 80px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--frost-gray);
+}
+
+.tech-header-text {}
+.tech-header-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #444;
+  max-width: 460px;
+}
+
+.tech-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--frost-gray);
+  border: 1px solid var(--frost-gray);
+}
+
+.tech-card {
+  background: var(--frost-white);
+  padding: 48px 40px;
+  position: relative;
+}
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 40px;
+  background: var(--arctic-blue);
+  opacity: 0;
+  transition: opacity 300ms, height 300ms;
+}
+.tech-card:hover::before { opacity: 1; height: 100%; }
+
+.tech-card-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--arctic-blue);
+  margin-bottom: 24px;
+}
+.tech-card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 24px;
+  color: var(--near-black);
+}
+.tech-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--near-black);
+}
+.tech-card-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+}
+
+/* ── Performance Metrics ─────────────────────────────────────── */
+.metrics {
+  background: var(--graphite);
+  padding: 100px 80px;
+}
+
+.metrics-header {
+  margin-bottom: 64px;
+}
+.metrics-header .section-label { color: var(--glacial-cyan); }
+.metrics-header .section-label::before { background: var(--glacial-cyan); }
+.metrics-header .section-heading { color: var(--frost-white); }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(221,229,234,0.1);
+  border: 1px solid rgba(221,229,234,0.1);
+  margin-bottom: 64px;
+}
+
+.metric-cell {
+  background: var(--graphite);
+  padding: 48px 40px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 300ms;
+}
+.metric-cell:hover { border-bottom-color: var(--arctic-blue); }
+
+.metric-value {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--frost-white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-value span {
+  font-size: 0.45em;
+  font-weight: 400;
+  color: var(--arctic-blue);
+  vertical-align: super;
+  margin-left: 4px;
+}
+.metric-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(221,229,234,0.55);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.metric-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(221,229,234,0.6);
+}
+
+/* ── Applications ────────────────────────────────────────────── */
+.applications {
+  background: var(--near-black);
+  padding: 120px 80px;
+}
+
+.applications-header {
+  margin-bottom: 64px;
+}
+.applications-header .section-label { color: var(--arctic-blue); }
+.applications-header .section-label::before { background: var(--arctic-blue); }
+.applications-header .section-heading { color: var(--frost-white); }
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(221,229,234,0.08);
+  border: 1px solid rgba(221,229,234,0.08);
+}
+
+.app-card {
+  background: var(--near-black);
+  padding: 40px 36px 44px;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid transparent;
+  transition: background 200ms, border-color 200ms;
+  cursor: default;
+}
+.app-card:hover {
+  background: rgba(0,119,200,0.07);
+  border-left-color: var(--arctic-blue);
+}
+
+.app-card-content { flex: 1; }
+.app-card-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--arctic-blue);
+  margin-bottom: 20px;
+}
+.app-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--frost-white);
+  line-height: 1.25;
+}
+.app-card-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.6);
+}
+
+.app-card-arrow { display: none; }
+
+/* ── Specifications ──────────────────────────────────────────── */
+.specifications {
+  background: var(--near-black);
+  padding: 120px 80px;
+}
+
+.spec-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+.spec-header .section-label { color: var(--arctic-blue); }
+.spec-header .section-heading { color: var(--frost-white); }
+.spec-header-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.65);
+}
+.spec-header-actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+}
+
+.spec-table-wrap {
+  overflow-x: auto;
+}
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.spec-table thead th {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.45);
+  text-align: left;
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(221,229,234,0.12);
+}
+.spec-table thead th:not(:first-child) { padding-left: 40px; }
+.spec-table tbody tr {
+  border-bottom: 1px solid rgba(221,229,234,0.07);
+  transition: background 150ms;
+}
+.spec-table tbody tr:hover { background: rgba(221,229,234,0.03); }
+.spec-table tbody td {
+  padding: 20px 0;
+  font-size: 15px;
+  color: rgba(221,229,234,0.8);
+}
+.spec-table tbody td:not(:first-child) { padding-left: 40px; }
+.spec-table tbody td.param { color: var(--arctic-blue); font-weight: 500; }
+.spec-table tbody td.value { color: var(--frost-white); font-weight: 700; font-size: 16px; }
+.spec-table tbody td.tol { color: rgba(221,229,234,0.5); font-family: var(--mono); font-size: 13px; }
+.spec-table tbody td.unit { color: rgba(221,229,234,0.55); font-family: var(--mono); font-size: 13px; }
+
+/* Series badge */
+.series-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--thermal-copper);
+  border: 1px solid rgba(199,106,50,0.4);
+  padding: 4px 12px;
+  margin-bottom: 48px;
+}
+
+/* ── Contact ─────────────────────────────────────────────────── */
+.contact {
+  background: var(--deep-navy);
+  padding: 120px 80px;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.contact-left .section-label { color: var(--arctic-blue); }
+.contact-left .section-heading { color: var(--frost-white); margin-bottom: 24px; }
+.contact-left-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.65);
+  margin-bottom: 48px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.contact-detail-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--arctic-blue);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.contact-detail-value {
+  font-size: 15px;
+  color: rgba(221,229,234,0.8);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-field label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(221,229,234,0.45);
+  text-transform: uppercase;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(221,229,234,0.05);
+  border: 1px solid rgba(221,229,234,0.15);
+  color: var(--frost-white);
+  font-family: var(--helv);
+  font-size: 15px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 200ms;
+  -webkit-appearance: none;
+  appearance: none;
+  resize: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(221,229,234,0.3); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--arctic-blue); }
+.form-field select { color: rgba(221,229,234,0.6); cursor: pointer; }
+
+.form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.form-note {
+  font-size: 12px;
+  color: rgba(221,229,234,0.35);
+  line-height: 1.5;
+  max-width: 240px;
+}
+
+/* ── Footer ────────────────────────────────────────────────────── */
+.footer {
+  background: var(--near-black);
+  padding: 64px 80px 40px;
+  border-top: 1px solid rgba(221,229,234,0.08);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 64px;
+}
+.footer-brand {}
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.footer-brand-logo img { height: 28px; width: auto; }
+.footer-brand-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.45);
+  max-width: 280px;
+}
+.footer-col-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(221,229,234,0.35);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-col-links a {
+  font-size: 14px;
+  color: rgba(221,229,234,0.55);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.footer-col-links a:hover { color: var(--frost-white); }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 32px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+}
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(221,229,234,0.3);
+}
+.footer-legal {
+  display: flex;
+  gap: 32px;
+}
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(221,229,234,0.3);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.footer-legal a:hover { color: rgba(221,229,234,0.65); }
+
+/* ── Scroll reveal utility ──────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .nav { padding: 0 32px; }
+  .nav-links { gap: 32px; }
+  .tech-header, .spec-header, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .tech-cards, .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .app-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 48px; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hero-content, .technology, .metrics, .applications, .specifications, .contact, .footer { padding-left: 24px; padding-right: 24px; }
+  .tech-cards, .metrics-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="#" class="nav-logo" aria-label="MAGNA therma — home">
+    <!-- Full horizontal lockup: icon halves + MAGNA + therma wordmarks, rendered for dark nav -->
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Invert filter: converts near-black content to white, preserves alpha -->
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix"
+            values="-1 0 0 0 1
+                     0 -1 0 0 1
+                     0  0 -1 0 1
+                     0  0  0 1 0"/>
+        </filter>
+      </defs>
+      <!-- Icon — black half (inverted → white on dark nav) -->
+      <image href="assets/icon-black.png"
+        x="0" y="0" width="50" height="36"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMidYMid meet"/>
+      <!-- Icon — blue half (no filter; blue reads fine on dark) -->
+      <image href="assets/icon-blue.png"
+        x="0" y="0" width="50" height="36"
+        preserveAspectRatio="xMidYMid meet"/>
+      <!-- MAGNA wordmark (inverted → white) top-aligned with icon -->
+      <image href="assets/magna.png"
+        x="60" y="0" width="138" height="18"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMinYMin meet"/>
+      <!-- therma wordmark (inverted → white) bottom-aligned with icon -->
+      <image href="assets/therma.png"
+        x="60" y="22" width="63" height="14"
+        filter="url(#nav-to-white)"
+        preserveAspectRatio="xMinYMin meet"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#applications">Applications</a></li>
+    <li><a href="#specifications">Specs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Request Specs</a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <!-- React animation mounts here -->
+  <div id="hero-anim-root"></div>
+  <!-- Scroll indicator fades in after animation settles (~9s) -->
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="hero-scroll-label">Scroll to explore</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── Technology ──────────────────────────────────────────────── -->
+<section class="technology" id="technology">
+  <div class="tech-header">
+    <div class="tech-header-text">
+      <div class="section-label reveal">01 / Technology</div>
+      <h2 class="section-heading reveal reveal-delay-1">Next-Generation<br>Thermal<br>Infrastructure.</h2>
+    </div>
+    <div>
+      <p class="tech-header-body reveal reveal-delay-2">Magna Therma combines advanced liquid cooling technology with modular micro data center infrastructure to dramatically reduce thermal overhead, increase compute density, and enable next-generation deployment efficiency. Engineered for industrial-scale reliability, the platform delivers precision thermal control while reducing cooling power overhead by up to 10× compared to conventional cooling systems.</p>
+    </div>
+  </div>
+
+  <div class="tech-cards">
+    <div class="tech-card reveal">
+      <div class="tech-card-num">01</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="4" y="10" width="32" height="20" rx="1"/>
+        <line x1="10" y1="10" x2="10" y2="30"/>
+        <line x1="16" y1="10" x2="16" y2="30"/>
+        <line x1="22" y1="10" x2="22" y2="30"/>
+        <line x1="28" y1="10" x2="28" y2="30"/>
+        <path d="M4 20 L36 20" stroke-dasharray="2 4" opacity="0.4"/>
+      </svg>
+      <h3 class="tech-card-title">Liquid Cooling Architecture</h3>
+      <p class="tech-card-body">Dual-phase liquid cooling channels are engineered to maximize thermal transfer efficiency at the source. By placing thermodynamics at the center of system design, Magna Therma removes heat faster, supports higher compute density, and significantly reduces cooling-related energy overhead compared to traditional air-cooled and DTC infrastructure.</p>
+    </div>
+    <div class="tech-card reveal reveal-delay-1">
+      <div class="tech-card-num">02</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 32 L8 8"/>
+        <path d="M8 8 L20 16 L32 8"/>
+        <path d="M20 16 L20 32"/>
+        <circle cx="8" cy="8" r="2" fill="currentColor" stroke="none"/>
+        <circle cx="32" cy="8" r="2" fill="currentColor" stroke="none"/>
+        <circle cx="20" cy="32" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+      <h3 class="tech-card-title">Thermal Distribution</h3>
+      <p class="tech-card-body">Heat is transferred from the immersion bath through a proprietary loop thermosyphon system that passively ejects thermal energy into ambient air. Designed for operation in harsh environments ranging from −10°C to 55°C, the system delivers stable thermal performance without reliance on power-hungry conventional HVAC infrastructure.</p>
+    </div>
+    <div class="tech-card reveal reveal-delay-2">
+      <div class="tech-card-num">03</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="6" y="6" width="12" height="12" rx="1"/>
+        <rect x="22" y="6" width="12" height="12" rx="1"/>
+        <rect x="6" y="22" width="12" height="12" rx="1"/>
+        <rect x="22" y="22" width="12" height="12" rx="1"/>
+        <line x1="18" y1="12" x2="22" y2="12"/>
+        <line x1="18" y1="28" x2="22" y2="28"/>
+        <line x1="12" y1="18" x2="12" y2="22"/>
+        <line x1="28" y1="18" x2="28" y2="22"/>
+      </svg>
+      <h3 class="tech-card-title">Modular Integration</h3>
+      <p class="tech-card-body">Magna Therma systems are designed for seamless integration into existing HPC, industrial, and edge-compute environments. Flexible modular architecture will support diverse rack configurations and deployment requirements, enabling rapid implementation with minimal operational disruption or downtime.</p>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-num">04</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="4,28 12,18 20,22 28,10 36,14"/>
+        <line x1="4" y1="32" x2="36" y2="32"/>
+        <line x1="4" y1="32" x2="4" y2="8"/>
+        <line x1="4" y1="8" x2="6" y2="8"/>
+        <line x1="4" y1="18" x2="6" y2="18"/>
+        <line x1="4" y1="28" x2="6" y2="28"/>
+      </svg>
+      <h3 class="tech-card-title">Precision Monitoring</h3>
+      <p class="tech-card-body">Integrated thermal telemetry will continuously monitor system performance with targeted sensor accuracy within ±0.5°C. Operators gain access to real-time diagnostics through local control interfaces and remote monitoring tools, enabling proactive optimization, predictive maintenance, and operational visibility across deployments.</p>
+    </div>
+    <div class="tech-card reveal reveal-delay-1">
+      <div class="tech-card-num">05</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 4 L36 14 L36 26 L20 36 L4 26 L4 14 Z"/>
+        <path d="M20 12 L28 17 L28 23 L20 28 L12 23 L12 17 Z"/>
+        <circle cx="20" cy="20" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+      <h3 class="tech-card-title">Industrial Durability</h3>
+      <p class="tech-card-body">Designed for continuous-duty operation in demanding environments, Magna Therma infrastructure will feature sealed IP54-rated enclosures, corrosion-resistant thermal pathways, and impact-resistant construction. Engineered reliability targets mean time between failures exceeding 80,000 operational hours.</p>
+    </div>
+    <div class="tech-card reveal reveal-delay-2">
+      <div class="tech-card-num">06</div>
+      <svg class="tech-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="14" y="4" width="12" height="24" rx="6"/>
+        <path d="M10 24 C10 32 30 32 30 24"/>
+        <line x1="20" y1="28" x2="20" y2="36"/>
+        <line x1="14" y1="36" x2="26" y2="36"/>
+        <circle cx="20" cy="20" r="2" fill="#0077C8" stroke="none"/>
+      </svg>
+      <h3 class="tech-card-title">Secure Infrastructure Control</h3>
+      <p class="tech-card-body">Designed for mission-critical deployments, Magna Therma systems will incorporate tightly controlled physical and digital access layers. Secured management interfaces, isolated infrastructure architecture, and controlled service access help protect sensitive compute environments while maintaining operational integrity and uptime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Metrics ────────────────────────────────────────────────────── -->
+<section class="metrics" id="metrics">
+  <div class="metrics-header">
+    <div class="section-label reveal">02 / Performance</div>
+    <h2 class="section-heading reveal reveal-delay-1">High-Density Compute.<br>Minimal Energy Waste.</h2>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-cell reveal">
+      <div class="metric-label">Compute Capacity</div>
+      <div class="metric-value">200<span>kW</span></div>
+      <div class="metric-desc">High-density compute support within a single modular thermal platform.</div>
+    </div>
+    <div class="metric-cell reveal reveal-delay-1">
+      <div class="metric-label">Cooling Overhead</div>
+      <div class="metric-value">&lt;10<span>kW</span></div>
+      <div class="metric-desc">Massively reduced cooling power requirements compared to traditional thermal management systems.</div>
+    </div>
+    <div class="metric-cell reveal reveal-delay-2">
+      <div class="metric-label">Operating Range</div>
+      <div class="metric-value">−10<span>to 55°C</span></div>
+      <div class="metric-desc">Engineered for reliable operation across a variety of industrial deployment environments.</div>
+    </div>
+    <div class="metric-cell reveal">
+      <div class="metric-label">Thermal Stability</div>
+      <div class="metric-value">≤50°C<span>Fluid Temp</span></div>
+      <div class="metric-desc">Dual-phase cooling maintains controlled thermal equilibrium under sustained workloads.</div>
+    </div>
+    <div class="metric-cell reveal reveal-delay-1">
+      <div class="metric-label">Telemetry Response</div>
+      <div class="metric-value">≤500<span>ms</span></div>
+      <div class="metric-desc">Real-time monitoring delivers immediate thermal visibility and operational awareness.</div>
+    </div>
+    <div class="metric-cell reveal reveal-delay-2">
+      <div class="metric-label">Deployment Velocity</div>
+      <div class="metric-value">Days<span>not months</span></div>
+      <div class="metric-desc">Modular infrastructure dramatically accelerates compute infrastructure deployment timelines.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Applications ──────────────────────────────────────────────── -->
+<section class="applications" id="applications">
+  <div class="applications-header">
+    <div class="section-label reveal">03 / Applications</div>
+    <h2 class="section-heading reveal reveal-delay-1">Engineered for<br>Heat-Intensive<br>Environments.</h2>
+  </div>
+  <div class="app-grid">
+    <div class="app-card reveal">
+      <div class="app-card-content">
+        <div class="app-card-num">01</div>
+        <h3 class="app-card-title">High-Performance Computing</h3>
+        <p class="app-card-body">AI training clusters, simulation systems, and HPC workloads generate extreme thermal density that traditional air cooling struggles to sustain. Magna Therma enables stable operation, higher rack density, and dramatically lower cooling overhead for compute-intensive environments.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal reveal-delay-1">
+      <div class="app-card-content">
+        <div class="app-card-num">02</div>
+        <h3 class="app-card-title">AI &amp; Data Center Infrastructure</h3>
+        <p class="app-card-body">Next-generation AI infrastructure demands scalable thermal management capable of supporting rapidly increasing GPU power density. Magna Therma's immersion-based architecture reduces energy waste while accelerating deployment of modular compute capacity.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal">
+      <div class="app-card-content">
+        <div class="app-card-num">03</div>
+        <h3 class="app-card-title">Cryptocurrency &amp; Blockchain Mining</h3>
+        <p class="app-card-body">High-density mining operations require continuous thermal management under relentless computational loads. Dielectric immersion cooling improves operational efficiency, reduces hardware degradation, and enables higher sustained performance with significantly lower infrastructure overhead.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal reveal-delay-1">
+      <div class="app-card-content">
+        <div class="app-card-num">04</div>
+        <h3 class="app-card-title">Industrial Automation &amp; Manufacturing</h3>
+        <p class="app-card-body">Industrial environments often expose electronics and compute systems to heat, dust, vibration, and inconsistent operating conditions. Magna Therma provides ruggedized thermal infrastructure designed for continuous-duty industrial deployment.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal">
+      <div class="app-card-content">
+        <div class="app-card-num">05</div>
+        <h3 class="app-card-title">Power Electronics &amp; Energy Systems</h3>
+        <p class="app-card-body">Inverters, grid systems, battery infrastructure, and high-power electronic assemblies generate concentrated thermal loads that require stable heat dissipation. Magna Therma supports reliable operation while minimizing cooling-related energy consumption.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal reveal-delay-1">
+      <div class="app-card-content">
+        <div class="app-card-num">06</div>
+        <h3 class="app-card-title">Defense &amp; Aerospace</h3>
+        <p class="app-card-body">Mission-critical systems require resilient cooling solutions capable of operating in harsh and unpredictable environments. Magna Therma's sealed modular architecture supports secure, high-performance compute and electronics deployment where reliability is essential.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal">
+      <div class="app-card-content">
+        <div class="app-card-num">07</div>
+        <h3 class="app-card-title">Edge Computing &amp; Modular Data Centers</h3>
+        <p class="app-card-body">As compute moves closer to the point of demand, compact and rapidly deployable infrastructure becomes critical. Magna Therma enables modular micro data centers with integrated thermal management that can be deployed in days instead of years.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+    <div class="app-card reveal reveal-delay-1">
+      <div class="app-card-content">
+        <div class="app-card-num">08</div>
+        <h3 class="app-card-title">Scientific &amp; Research Computing</h3>
+        <p class="app-card-body">Research institutions and advanced laboratories increasingly rely on dense compute environments for modeling, simulation, and data analysis. Magna Therma supports sustained computational performance while reducing operational energy costs and thermal constraints.</p>
+      </div>
+      <div class="app-card-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Specifications ─────────────────────────────────────────────── -->
+<section class="specifications" id="specifications">
+  <div class="spec-header">
+    <div>
+      <div class="section-label reveal">04 / Specifications</div>
+      <h2 class="section-heading reveal reveal-delay-1">Platform<br>Specifications.</h2>
+    </div>
+    <div>
+      <div class="series-badge reveal">SPEC SHEET · PLATFORM · 2026</div>
+      <p class="spec-header-body reveal reveal-delay-1">Full performance specification for the MAGNA therma modular thermal platform. Key values are engineering targets; parameters marked TBD are in active development. Contact us for current design specifications.</p>
+      <div class="spec-header-actions reveal reveal-delay-2">
+        <a href="#contact" class="btn-primary">Request Full Datasheet</a>
+        <a href="#contact" class="btn-outline" style="color:rgba(247,250,252,0.8); border-color:rgba(247,250,252,0.25);">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-table-wrap reveal">
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Value</th>
+          <th>Tolerance</th>
+          <th>Unit</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="param">Compute Thermal Capacity</td>
+          <td class="value">200</td>
+          <td class="tol">±5%</td>
+          <td class="unit">kW</td>
+          <td>Maximum sustained supported compute thermal load</td>
+        </tr>
+        <tr>
+          <td class="param">Cooling System Overhead</td>
+          <td class="value">&lt;10</td>
+          <td class="tol">±5%</td>
+          <td class="unit">kW</td>
+          <td>Total parasitic cooling power consumption</td>
+        </tr>
+        <tr>
+          <td class="param">Operating Temperature Range</td>
+          <td class="value">−10 to 55</td>
+          <td class="tol">±2</td>
+          <td class="unit">°C</td>
+          <td>Ambient operating environment</td>
+        </tr>
+        <tr>
+          <td class="param">Coolant Max Operating Temp</td>
+          <td class="value">50</td>
+          <td class="tol">±1</td>
+          <td class="unit">°C</td>
+          <td>Controlled dual-phase boiling threshold</td>
+        </tr>
+        <tr>
+          <td class="param">Coolant Flow Rate</td>
+          <td class="value">TBD</td>
+          <td class="tol">±5%</td>
+          <td class="unit">L/min</td>
+          <td>Total system circulation throughput</td>
+        </tr>
+        <tr>
+          <td class="param">Heat Rejection Capacity</td>
+          <td class="value">TBD</td>
+          <td class="tol">±5%</td>
+          <td class="unit">kW</td>
+          <td>Continuous thermal rejection to ambient air</td>
+        </tr>
+        <tr>
+          <td class="param">Loop Thermosyphon Pressure</td>
+          <td class="value">~10 bar</td>
+          <td class="tol">±2%</td>
+          <td class="unit">Bar</td>
+          <td>Nominal sealed loop operating pressure</td>
+        </tr>
+        <tr>
+          <td class="param">Acoustic Output</td>
+          <td class="value">&lt;45</td>
+          <td class="tol">±3</td>
+          <td class="unit">dBA</td>
+          <td>Measured at 1 metre under nominal load</td>
+        </tr>
+        <tr>
+          <td class="param">Thermal Sensor Accuracy</td>
+          <td class="value">±0.5</td>
+          <td class="tol">N/A</td>
+          <td class="unit">°C</td>
+          <td>Real-time thermal telemetry accuracy</td>
+        </tr>
+        <tr>
+          <td class="param">Telemetry Refresh Interval</td>
+          <td class="value">&lt;1</td>
+          <td class="tol">±0.1</td>
+          <td class="unit">sec</td>
+          <td>Remote and local monitoring update interval</td>
+        </tr>
+        <tr>
+          <td class="param">Peak System Power Draw</td>
+          <td class="value">220</td>
+          <td class="tol">±5%</td>
+          <td class="unit">kW</td>
+          <td>Maximum full-load operational power consumption</td>
+        </tr>
+        <tr>
+          <td class="param">Power Frequency</td>
+          <td class="value">50/60</td>
+          <td class="tol">±1</td>
+          <td class="unit">Hz</td>
+          <td>Compatible with global AC infrastructure</td>
+        </tr>
+        <tr>
+          <td class="param">MTBF</td>
+          <td class="value">&gt;80,000</td>
+          <td class="tol">N/A</td>
+          <td class="unit">hours</td>
+          <td>Continuous-duty operational reliability</td>
+        </tr>
+        <tr>
+          <td class="param">Ingress Protection</td>
+          <td class="value">IP54</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Rating</td>
+          <td>Dust-protected and splash-resistant enclosure</td>
+        </tr>
+        <tr>
+          <td class="param">Cooling Architecture</td>
+          <td class="value">Dual-Phase Immersion</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Type</td>
+          <td>Passive-assisted thermal transfer system</td>
+        </tr>
+        <tr>
+          <td class="param">Heat Exchange Method</td>
+          <td class="value">Loop Thermosyphon</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Type</td>
+          <td>Passive ambient heat rejection architecture</td>
+        </tr>
+        <tr>
+          <td class="param">Deployment Configuration</td>
+          <td class="value">Modular</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Type</td>
+          <td>Scalable micro data center architecture</td>
+        </tr>
+        <tr>
+          <td class="param">Monitoring Interface</td>
+          <td class="value">Local + Remote</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Interface</td>
+          <td>Integrated HMI and cloud telemetry support</td>
+        </tr>
+        <tr>
+          <td class="param">Continuous Duty Cycle</td>
+          <td class="value">24/7</td>
+          <td class="tol">N/A</td>
+          <td class="unit">Operation</td>
+          <td>Designed for uninterrupted industrial operation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="section-label reveal">05 / Contact</div>
+      <h2 class="section-heading reveal reveal-delay-1">Request specs<br>or a consultation.</h2>
+      <p class="contact-left-body reveal reveal-delay-2">MAGNA therma engages directly with qualified OEMs, system integrators, and procurement teams. No generic demos — only technical conversations with decision-makers.</p>
+      <div class="contact-details reveal reveal-delay-3">
+        <div>
+          <div class="contact-detail-label">Headquarters</div>
+          <div class="contact-detail-value">MAGNA therma Inc.<br>Advanced Thermal Systems Division</div>
+        </div>
+        <div>
+          <div class="contact-detail-label">Technical Inquiries</div>
+          <div class="contact-detail-value">engineering@magnatherma.com</div>
+        </div>
+        <div>
+          <div class="contact-detail-label">Sales & OEM</div>
+          <div class="contact-detail-value">sales@magnatherma.com</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal reveal-delay-1">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="f-name">First Name</label>
+          <input type="text" id="f-name" placeholder="Jake" autocomplete="given-name">
+        </div>
+        <div class="form-field">
+          <label for="f-last">Last Name</label>
+          <input type="text" id="f-last" placeholder="Smith" autocomplete="family-name">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="f-email">Work Email</label>
+        <input type="email" id="f-email" placeholder="you@company.com" autocomplete="email">
+      </div>
+      <div class="form-field">
+        <label for="f-company">Company</label>
+        <input type="text" id="f-company" placeholder="Company name" autocomplete="organization">
+      </div>
+      <div class="form-field">
+        <label for="f-type">Inquiry Type</label>
+        <select id="f-type">
+          <option value="" disabled selected>Select inquiry type</option>
+          <option>Technical Specification Request</option>
+          <option>OEM / Integration Partnership</option>
+          <option>Volume Pricing</option>
+          <option>Custom Thermal Solution</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" rows="4" placeholder="Describe your thermal requirements or application environment..."></textarea>
+      </div>
+      <div class="form-submit">
+        <p class="form-note">All inquiries are reviewed by our engineering team within 2 business days.</p>
+        <button type="submit" class="btn-primary" style="padding:14px 40px; font-size:14px; letter-spacing:0.06em;">Submit</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="footer-to-white" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix"
+                values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+            </filter>
+          </defs>
+          <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#footer-to-white)" preserveAspectRatio="xMidYMid meet"/>
+          <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+          <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+          <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+        </svg>
+      </div>
+      <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Technology</div>
+      <ul class="footer-col-links">
+        <li><a href="#technology">Liquid Cooling</a></li>
+        <li><a href="#technology">Thermal Distribution</a></li>
+        <li><a href="#technology">Modular Systems</a></li>
+        <li><a href="#technology">Monitoring</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-col-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <ul class="footer-col-links">
+        <li><a href="#specifications">Datasheets</a></li>
+        <li><a href="#">Installation Guide</a></li>
+        <li><a href="#">Integration Notes</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">IP Notices</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── React + Babel CDN ──────────────────────────────────────────── -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- ── Animation engine (animations.jsx inlined) ────────────────── -->
+<script type="text/babel">
+const Easing = {
+  linear: (t) => t,
+  easeInQuad:    (t) => t * t,
+  easeOutQuad:   (t) => t * (2 - t),
+  easeInOutQuad: (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+  easeInCubic:    (t) => t * t * t,
+  easeOutCubic:   (t) => (--t) * t * t + 1,
+  easeInOutCubic: (t) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1),
+  easeInQuart:    (t) => t * t * t * t,
+  easeOutQuart:   (t) => 1 - (--t) * t * t * t,
+  easeInOutQuart: (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t),
+  easeInExpo:  (t) => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1))),
+  easeOutExpo: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+  easeInOutExpo: (t) => {
+    if (t === 0) return 0; if (t === 1) return 1;
+    if (t < 0.5) return 0.5 * Math.pow(2, 20 * t - 10);
+    return 1 - 0.5 * Math.pow(2, -20 * t + 10);
+  },
+  easeInSine:    (t) => 1 - Math.cos((t * Math.PI) / 2),
+  easeOutSine:   (t) => Math.sin((t * Math.PI) / 2),
+  easeInOutSine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+  easeOutBack: (t) => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); },
+  easeInBack:  (t) => { const c1=1.70158,c3=c1+1; return c3*t*t*t-c1*t*t; },
+  easeInOutBack: (t) => {
+    const c1=1.70158,c2=c1*1.525;
+    return t<0.5?(Math.pow(2*t,2)*((c2+1)*2*t-c2))/2:(Math.pow(2*t-2,2)*((c2+1)*(t*2-2)+c2)+2)/2;
+  },
+  easeOutElastic: (t) => {
+    const c4=(2*Math.PI)/3;
+    if(t===0)return 0; if(t===1)return 1;
+    return Math.pow(2,-10*t)*Math.sin((t*10-0.75)*c4)+1;
+  },
+};
+const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
+function interpolate(input,output,ease=Easing.linear){
+  return(t)=>{
+    if(t<=input[0])return output[0];
+    if(t>=input[input.length-1])return output[output.length-1];
+    for(let i=0;i<input.length-1;i++){
+      if(t>=input[i]&&t<=input[i+1]){
+        const span=input[i+1]-input[i];
+        const local=span===0?0:(t-input[i])/span;
+        const easeFn=Array.isArray(ease)?(ease[i]||Easing.linear):ease;
+        return output[i]+(output[i+1]-output[i])*easeFn(local);
+      }
+    }
+    return output[output.length-1];
+  };
+}
+function animate({from=0,to=1,start=0,end=1,ease=Easing.easeInOutCubic}){
+  return(t)=>{
+    if(t<=start)return from; if(t>=end)return to;
+    return from+(to-from)*ease((t-start)/(end-start));
+  };
+}
+const TimelineContext = React.createContext({time:0,duration:10,playing:false});
+const useTime = () => React.useContext(TimelineContext).time;
+const useTimeline = () => React.useContext(TimelineContext);
+const SpriteContext = React.createContext({localTime:0,progress:0,duration:0});
+const useSprite = () => React.useContext(SpriteContext);
+function Sprite({start=0,end=Infinity,children,keepMounted=false}){
+  const {time}=useTimeline();
+  const visible=time>=start&&time<=end;
+  if(!visible&&!keepMounted)return null;
+  const dur=end-start;
+  const localTime=Math.max(0,time-start);
+  const progress=dur>0&&isFinite(dur)?clamp(localTime/dur,0,1):0;
+  const value={localTime,progress,duration:dur,visible};
+  return <SpriteContext.Provider value={value}>{typeof children==='function'?children(value):children}</SpriteContext.Provider>;
+}
+
+/* AutoplayStage — Stage without playback controls, for production hero */
+function AutoplayStage({width,height,duration,background='#F7FAFC',loop=true,children}){
+  const [time,setTime]=React.useState(0);
+  const [scale,setScale]=React.useState(1);
+  const ref=React.useRef(null);
+  const raf=React.useRef(null);
+  const last=React.useRef(null);
+  React.useEffect(()=>{
+    if(!ref.current)return;
+    const el=ref.current;
+    const measure=()=>setScale(Math.max(0.05,el.clientWidth/width));
+    measure();
+    const ro=new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize',measure);
+    return()=>{ro.disconnect();window.removeEventListener('resize',measure);};
+  },[width,height]);
+  React.useEffect(()=>{
+    const step=ts=>{
+      if(last.current==null)last.current=ts;
+      const dt=(ts-last.current)/1000;
+      last.current=ts;
+      setTime(t=>{const n=t+dt;return n>=duration?(loop?n%duration:duration):n;});
+      raf.current=requestAnimationFrame(step);
+    };
+    raf.current=requestAnimationFrame(step);
+    return()=>{cancelAnimationFrame(raf.current);last.current=null;};
+  },[duration,loop]);
+  const ctx=React.useMemo(()=>({time,duration,playing:true,setTime:()=>{},setPlaying:()=>{}}),[time,duration]);
+  return(
+    <div ref={ref} style={{position:'absolute',inset:0,background,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+      <div style={{width,height,background,position:'relative',transform:`scale(${scale})`,transformOrigin:'center',flexShrink:0,overflow:'hidden'}}>
+        <TimelineContext.Provider value={ctx}>{children}</TimelineContext.Provider>
+      </div>
+    </div>
+  );
+}
+Object.assign(window,{Easing,interpolate,animate,clamp,TimelineContext,useTime,useTimeline,Sprite,SpriteContext,useSprite,AutoplayStage});
+</script>
+
+<!-- ── Hero scene (hero.jsx inlined) ────────────────────────────── -->
+<script type="text/babel">
+const BRAND={
+  nearBlack:'#0B0B0C',arcticBlue:'#0077C8',glacialCyan:'#39D5FF',
+  deepNavy:'#071E33',graphite:'#25282B',frostGray:'#DDE5EA',
+  frostGrayDk:'#C5D2DB',frostWhite:'#F7FAFC',
+};
+const HELV='"Helvetica Neue",Helvetica,Arial,sans-serif';
+const MONO='"JetBrains Mono",ui-monospace,SFMono-Regular,monospace';
+const LOCKUP={
+  left:230,top:300,
+  icon:{x:230,y:300,w:380,h:272},
+  magna:{x:685,y:300,w:1045,h:139},
+  therma:{x:685,y:464,w:473,h:108},
+};
+const ICON_CX=LOCKUP.icon.x+LOCKUP.icon.w/2;
+const ICON_CY=LOCKUP.icon.y+LOCKUP.icon.h/2;
+
+function Schematic({gridA=0,bracketsA=0,ticksA=0,labelsA=0,fadeOut=0}){
+  const topTicks=[];
+  for(let x=160;x<=1760;x+=80)topTicks.push(x);
+  const sideTicks=[];
+  for(let y=160;y<=920;y+=80)sideTicks.push(y);
+  const tickAt=(i)=>Math.max(0,Math.min(1,(ticksA*(topTicks.length+6)-i)/1.5));
+  const alpha=1-fadeOut;
+  return(
+    <div style={{position:'absolute',inset:0,pointerEvents:'none',opacity:alpha}}>
+      <svg width="1920" height="1080" style={{position:'absolute',inset:0}}>
+        <g opacity={gridA*0.7} stroke={BRAND.frostGray} strokeWidth="1">
+          {[240,480,720,1200,1440,1680].map(x=><line key={'v'+x} x1={x} y1="60" x2={x} y2="1020"/>)}
+          {[270,540,810].map(y=><line key={'h'+y} x1="60" y1={y} x2="1860" y2={y}/>)}
+        </g>
+        <rect x="60" y="60" width="1800" height="960" fill="none" stroke={BRAND.frostGrayDk} strokeWidth="1" opacity={gridA*0.9}/>
+        <g stroke={BRAND.nearBlack} strokeWidth="2" fill="none" strokeLinecap="square">
+          {[
+            {d:'M 100 60 L 60 60 L 60 100',i:0},
+            {d:'M 1820 60 L 1860 60 L 1860 100',i:1},
+            {d:'M 100 1020 L 60 1020 L 60 980',i:2},
+            {d:'M 1820 1020 L 1860 1020 L 1860 980',i:3},
+          ].map(b=>{const a=Math.max(0,Math.min(1,bracketsA*4-b.i));return <path key={b.i} d={b.d} opacity={a}/>;})
+          }
+        </g>
+        <g stroke={BRAND.nearBlack} strokeWidth="1">
+          {topTicks.map((x,i)=>{const a=tickAt(i);const tall=(i%5===0);return <line key={'tt'+i} x1={x} y1="60" x2={x} y2={60+(tall?16:8)} opacity={a}/>;})}</g>
+        <g stroke={BRAND.nearBlack} strokeWidth="1">
+          {sideTicks.map((y,i)=>{const a=tickAt(i+6);const tall=(i%4===0);return <line key={'rt'+i} x1="1860" y1={y} x2={1860-(tall?16:8)} y2={y} opacity={a}/>;})}</g>
+        <g fill={BRAND.nearBlack} fontFamily={MONO} fontSize="11" letterSpacing="0.16em" opacity={labelsA}>
+          <text x="320" y="50" textAnchor="middle">0240</text>
+          <text x="640" y="50" textAnchor="middle">0560</text>
+          <text x="960" y="50" textAnchor="middle">0880</text>
+          <text x="1280" y="50" textAnchor="middle">1200</text>
+          <text x="1600" y="50" textAnchor="middle">1520</text>
+        </g>
+        <g opacity={labelsA} fill={BRAND.nearBlack} fontFamily={MONO} fontSize="10" letterSpacing="0.18em">
+          <text x={ICON_CX} y="50" textAnchor="middle">— ICON C/L</text>
+          <text x="1860" y={ICON_CY+4} textAnchor="end">C/L —</text>
+        </g>
+        <g stroke={BRAND.arcticBlue} strokeWidth="1.5" fill="none" strokeLinecap="square" opacity={labelsA}>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-24} L ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-12}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y-24} L ${LOCKUP.icon.x-12} ${LOCKUP.icon.y-24}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-24} L ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-12}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y-24} L ${LOCKUP.magna.x+LOCKUP.magna.w+12} ${LOCKUP.icon.y-24}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+12}`}/>
+          <path d={`M ${LOCKUP.icon.x-24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.icon.x-12} ${LOCKUP.icon.y+LOCKUP.icon.h+24}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+12}`}/>
+          <path d={`M ${LOCKUP.magna.x+LOCKUP.magna.w+24} ${LOCKUP.icon.y+LOCKUP.icon.h+24} L ${LOCKUP.magna.x+LOCKUP.magna.w+12} ${LOCKUP.icon.y+LOCKUP.icon.h+24}`}/>
+        </g>
+      </svg>
+      <ChromeLabel x={60}   y={36}   align="left"  text="MAGNA THERMA / CRYO INDUSTRIAL" opacity={labelsA}/>
+      <ChromeLabel x={1860} y={36}   align="right" text="V01 · 2026"                     opacity={labelsA}/>
+      <ChromeLabel x={60}   y={1052} align="left"  text="FRAME 1920 × 1080 · 16:9"       opacity={labelsA}/>
+      <ChromeLabel x={1860} y={1052} align="right" text="ENGINEERED FOR THERMAL PERFORMANCE" opacity={labelsA}/>
+    </div>
+  );
+}
+function ChromeLabel({x,y,align,text,opacity=1,color=BRAND.nearBlack}){
+  return(
+    <div style={{position:'absolute',left:align==='right'?undefined:x,right:align==='right'?1920-x:undefined,top:y,transform:'translateY(-50%)',fontFamily:MONO,fontSize:11,fontWeight:500,color,letterSpacing:'0.22em',opacity,whiteSpace:'nowrap'}}>{text}</div>
+  );
+}
+function Crosshair({vDraw=0,hDraw=0,glow=0,color=BRAND.arcticBlue}){
+  const vLen=220,hLen=260;
+  return(
+    <svg width="1920" height="1080" style={{position:'absolute',inset:0,pointerEvents:'none'}}>
+      <line x1={ICON_CX} y1={ICON_CY-vLen*vDraw} x2={ICON_CX} y2={ICON_CY+vLen*vDraw} stroke={color} strokeWidth="1"/>
+      <line x1={ICON_CX-hLen*hDraw} y1={ICON_CY} x2={ICON_CX+hLen*hDraw} y2={ICON_CY} stroke={color} strokeWidth="1"/>
+      {glow>0&&<circle cx={ICON_CX} cy={ICON_CY} r={6+22*(1-glow)} fill="none" stroke={BRAND.glacialCyan} strokeWidth="1.5" opacity={glow}/>}
+      {glow>0&&<circle cx={ICON_CX} cy={ICON_CY} r="3" fill={BRAND.arcticBlue} opacity={glow}/>}
+    </svg>
+  );
+}
+function HeroLoop(){
+  const t=useTime();
+  const hitTime=4.62;
+  const shakeProg=Math.max(0,Math.min(1,(t-hitTime)/0.22));
+  const shakeX=shakeProg<1?Math.sin(shakeProg*Math.PI*7)*(1-shakeProg)*6:0;
+  const shakeY=shakeProg<1?Math.cos(shakeProg*Math.PI*9)*(1-shakeProg)*2:0;
+  const schematicFadeOut=animate({from:0,to:1,start:13.4,end:14.4,ease:Easing.easeInQuad})(t);
+  const gridA    =animate({from:0,to:1,start:0.6,end:1.6,ease:Easing.easeOutQuad})(t);
+  const bracketsA=animate({from:0,to:1,start:1.0,end:2.2,ease:Easing.easeOutQuart})(t);
+  const ticksA   =animate({from:0,to:1,start:1.4,end:2.7,ease:Easing.linear})(t);
+  const labelsA  =animate({from:0,to:1,start:1.8,end:2.6,ease:Easing.easeOutQuad})(t);
+  const vDraw=animate({from:0,to:1,start:2.4,end:3.0,ease:Easing.easeOutExpo})(t);
+  const hDraw=animate({from:0,to:1,start:2.9,end:3.5,ease:Easing.easeOutExpo})(t);
+  const crossGlow=animate({from:0,to:1,start:3.6,end:4.0,ease:Easing.easeOutCubic})(t)
+                 -animate({from:0,to:1,start:4.0,end:4.5,ease:Easing.easeInCubic})(t);
+  const slamL=interpolate(
+    [0,4.0,4.55,4.7,4.85,5.05],
+    [-2000,-2000,8,-3,1,0],
+    [Easing.linear,Easing.easeOutQuart,Easing.easeOutQuad,Easing.easeInOutQuad,Easing.easeOutQuad,Easing.linear]
+  )(t);
+  const slamR=-slamL;
+  const exitL=animate({from:0,to:-2000,start:13.6,end:14.4,ease:Easing.easeInQuart})(t);
+  const exitR=-exitL;
+  const leftOffset=slamL+exitL;
+  const rightOffset=slamR+exitR;
+  const iconOpacity=1-animate({from:0,to:1,start:13.8,end:14.5,ease:Easing.easeInQuad})(t);
+  const flashIn =animate({from:0,to:1,start:4.55,end:4.72,ease:Easing.easeOutQuad})(t);
+  const flashOut=animate({from:0,to:1,start:4.72,end:5.25,ease:Easing.easeInQuad})(t);
+  const flashA=Math.max(0,flashIn-flashOut);
+  const magnaEntry=animate({from:0,to:1,start:5.1,end:5.7,ease:Easing.easeOutQuart})(t);
+  const magnaExit =animate({from:0,to:1,start:13.7,end:14.3,ease:Easing.easeInQuad})(t);
+  const magnaA=Math.max(0,magnaEntry-magnaExit);
+  const magnaX=(1-magnaEntry)*80;
+  const thermaEntry=animate({from:0,to:1,start:5.6,end:6.2,ease:Easing.easeOutQuart})(t);
+  const thermaExit =animate({from:0,to:1,start:13.7,end:14.3,ease:Easing.easeInQuad})(t);
+  const thermaA=Math.max(0,thermaEntry-thermaExit);
+  const thermaX=(1-thermaEntry)*60;
+  const ruleEntry=animate({from:0,to:1,start:6.4,end:7.0,ease:Easing.easeOutExpo})(t);
+  const ruleExit =animate({from:0,to:1,start:13.6,end:14.2,ease:Easing.easeInQuad})(t);
+  const ruleA=Math.max(0,ruleEntry-ruleExit);
+  const tagEntry=animate({from:0,to:1,start:6.9,end:7.55,ease:Easing.easeOutQuart})(t);
+  const tagExit =animate({from:0,to:1,start:13.5,end:14.1,ease:Easing.easeInQuad})(t);
+  const tagA=Math.max(0,tagEntry-tagExit);
+  const tagY0=(1-tagEntry)*-18;
+  const supportEntry=animate({from:0,to:1,start:7.7,end:8.4,ease:Easing.easeOutCubic})(t);
+  const supportExit =animate({from:0,to:1,start:13.4,end:14.0,ease:Easing.easeInQuad})(t);
+  const supportA=Math.max(0,supportEntry-supportExit);
+  const ambient=(t>5.5&&t<13.3)?0.5+0.5*Math.sin((t-5.5)*Math.PI*0.9):0;
+  const cx=960;
+  const ruleY=LOCKUP.icon.y+LOCKUP.icon.h+70;
+  const tagY_pos=ruleY+36;
+  const supportY=tagY_pos+78;
+  return(
+    <div style={{position:'absolute',inset:0,transform:`translate(${shakeX}px,${shakeY}px)`,willChange:'transform'}}>
+      <Schematic gridA={gridA} bracketsA={bracketsA} ticksA={ticksA} labelsA={labelsA} fadeOut={schematicFadeOut}/>
+      <Crosshair vDraw={vDraw} hDraw={hDraw} glow={Math.max(0,crossGlow)}/>
+      <div style={{position:'absolute',left:LOCKUP.icon.x,top:LOCKUP.icon.y,width:LOCKUP.icon.w,height:LOCKUP.icon.h,opacity:iconOpacity}}>
+        <img src="assets/icon-black.png" alt="" draggable={false} style={{position:'absolute',inset:0,width:'100%',height:'100%',transform:`translateX(${leftOffset}px)`,willChange:'transform'}}/>
+        <img src="assets/icon-blue.png"  alt="" draggable={false} style={{position:'absolute',inset:0,width:'100%',height:'100%',transform:`translateX(${rightOffset}px)`,willChange:'transform'}}/>
+        {flashA>0&&<div style={{position:'absolute',left:'-6%',top:'40%',width:'112%',height:2,background:`linear-gradient(90deg,transparent 0%,${BRAND.glacialCyan} 30%,${BRAND.glacialCyan} 70%,transparent 100%)`,opacity:flashA,boxShadow:`0 0 16px ${BRAND.glacialCyan}`}}/>}
+      </div>
+      <img src="assets/magna.png"  alt="" draggable={false} style={{position:'absolute',left:LOCKUP.magna.x,top:LOCKUP.magna.y,width:LOCKUP.magna.w,height:LOCKUP.magna.h,opacity:magnaA,transform:`translateX(${magnaX}px)`,willChange:'transform,opacity'}}/>
+      <img src="assets/therma.png" alt="" draggable={false} style={{position:'absolute',left:LOCKUP.therma.x,top:LOCKUP.therma.y,width:LOCKUP.therma.w,height:LOCKUP.therma.h,opacity:thermaA,transform:`translateX(${thermaX}px)`,willChange:'transform,opacity'}}/>
+      <div style={{position:'absolute',left:cx-(ruleA*200),top:ruleY,width:ruleA*400,height:1,background:BRAND.arcticBlue,opacity:ruleA}}/>
+      <div style={{position:'absolute',left:cx+200-1,top:ruleY-4,width:2,height:9,background:BRAND.glacialCyan,opacity:ruleA}}/>
+      <div style={{position:'absolute',left:cx-200-1,top:ruleY-4,width:2,height:9,background:BRAND.glacialCyan,opacity:ruleA*ambient*0.9}}/>
+      <div style={{position:'absolute',left:0,right:0,top:tagY_pos,textAlign:'center',opacity:tagA,transform:`translateY(${tagY0}px)`,fontFamily:HELV,fontWeight:700,fontSize:42,letterSpacing:'-0.005em',color:BRAND.nearBlack,lineHeight:1.1}}>Engineered for Relentless Performance.</div>
+      <div style={{position:'absolute',left:0,right:0,top:supportY,textAlign:'center',opacity:supportA,fontFamily:HELV,fontWeight:400,fontSize:22,letterSpacing:'0.04em',color:BRAND.graphite,lineHeight:1.2}}>Precision liquid cooling and modular infrastructure that dramatically reduce energy consumption.</div>
+    </div>
+  );
+}
+Object.assign(window,{BRAND,LOCKUP,ICON_CX,ICON_CY,Schematic,ChromeLabel,Crosshair,HeroLoop});
+</script>
+
+<!-- ── Mount hero animation + page utilities ────────────────────── -->
+<script type="text/babel">
+// Mount the hero loop — uses AutoplayStage (no playback bar)
+const heroRoot = document.getElementById('hero-anim-root');
+if (heroRoot) {
+  ReactDOM.createRoot(heroRoot).render(
+    <AutoplayStage width={1920} height={1080} duration={15} background={BRAND.frostWhite} loop={true}>
+      <HeroLoop />
+    </AutoplayStage>
+  );
+}
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+// Nav active state
+const navLinks = document.querySelectorAll('.nav-links a');
+const scrollSpy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.style.color = '');
+      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (active) active.style.color = 'rgba(247,250,252,1)';
+    }
+  });
+}, { rootMargin: '-40% 0px -40% 0px' });
+document.querySelectorAll('section[id]').forEach(s => scrollSpy.observe(s));
+</script>
+</body>
+</html>
