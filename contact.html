@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — MAGNA therma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --near-black:   #0B0B0C;
+  --arctic-blue:  #0077C8;
+  --glacial-cyan: #39D5FF;
+  --deep-navy:    #071E33;
+  --graphite:     #25282B;
+  --frost-gray:   #DDE5EA;
+  --frost-white:  #F7FAFC;
+  --helv: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--helv);
+  background: var(--frost-white);
+  color: var(--near-black);
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 72px;
+  background: rgba(7,30,51,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo svg { display: block; overflow: visible; }
+.nav-links { display: flex; align-items: center; gap: 48px; list-style: none; }
+.nav-links a {
+  font-family: var(--helv);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247,250,252,0.7);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] { color: #F7FAFC; }
+.nav-cta {
+  font-family: var(--helv);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #F7FAFC;
+  background: var(--arctic-blue);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.nav-cta:hover { background: #0066aa; }
+
+/* ── Page wrap ── */
+.page-wrap { padding-top: 72px; }
+
+/* ── Hero header ── */
+.page-header {
+  background: var(--near-black);
+  padding: 88px 80px 80px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle schematic grid */
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,119,200,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,119,200,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.page-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.page-header-left {}
+
+.page-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-size: clamp(52px, 6.5vw, 88px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: #F7FAFC;
+}
+
+.page-header-right {
+  padding-bottom: 8px;
+}
+
+.page-subhead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(221,229,234,0.65);
+  margin-bottom: 40px;
+  max-width: 420px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(221,229,234,0.1);
+}
+
+.header-stat-value {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 500;
+  color: #F7FAFC;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.header-stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.38);
+}
+
+/* ── Main contact section ── */
+.contact-main {
+  background: var(--deep-navy);
+  padding: 96px 80px;
+}
+
+.contact-main-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 100px;
+  align-items: start;
+}
+
+/* ── Left column ── */
+.contact-info {}
+
+.contact-info-intro {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(221,229,234,0.65);
+  margin-bottom: 52px;
+  max-width: 380px;
+}
+
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 52px;
+  border-top: 1px solid rgba(221,229,234,0.08);
+}
+
+.contact-channel {
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(221,229,234,0.08);
+}
+
+.channel-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 6px;
+}
+
+.channel-value {
+  font-size: 15px;
+  color: rgba(221,229,234,0.85);
+  line-height: 1.5;
+}
+
+.channel-value a {
+  color: rgba(221,229,234,0.85);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.channel-value a:hover { color: #F7FAFC; }
+
+.channel-note {
+  font-size: 12px;
+  color: rgba(221,229,234,0.35);
+  margin-top: 4px;
+}
+
+/* Location block */
+.location-block {
+  padding: 24px 28px;
+  border: 1px solid rgba(221,229,234,0.08);
+  border-left: 2px solid rgba(0,119,200,0.5);
+}
+
+.location-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.35);
+  margin-bottom: 10px;
+}
+
+.location-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(221,229,234,0.85);
+  margin-bottom: 4px;
+}
+
+.location-address {
+  font-size: 14px;
+  color: rgba(221,229,234,0.5);
+  line-height: 1.6;
+}
+
+/* ── Right column: Form ── */
+.contact-form-wrap {}
+
+.form-heading {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.35);
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(221,229,234,0.08);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(221,229,234,0.45);
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(221,229,234,0.04);
+  border: 1px solid rgba(221,229,234,0.12);
+  color: #F7FAFC;
+  font-family: var(--helv);
+  font-size: 15px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 200ms, background 200ms;
+  -webkit-appearance: none;
+  appearance: none;
+  resize: none;
+  width: 100%;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(221,229,234,0.25); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--arctic-blue);
+  background: rgba(0,119,200,0.06);
+}
+.form-field select {
+  color: rgba(221,229,234,0.55);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(221,229,234,0.4)' stroke-width='1.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.form-field select:focus { color: #F7FAFC; }
+
+.form-divider {
+  height: 1px;
+  background: rgba(221,229,234,0.07);
+  margin: 4px 0;
+}
+
+.form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
+
+.form-note {
+  font-size: 12px;
+  color: rgba(221,229,234,0.3);
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--arctic-blue);
+  color: #F7FAFC;
+  font-family: var(--helv);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 200ms;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.btn-primary:hover { background: #0066aa; }
+
+/* Success message (hidden by default) */
+.form-success {
+  display: none;
+  padding: 24px 28px;
+  border: 1px solid rgba(0,119,200,0.3);
+  border-left: 3px solid var(--arctic-blue);
+  background: rgba(0,119,200,0.07);
+}
+.form-success.visible { display: block; }
+.form-success-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #F7FAFC;
+  margin-bottom: 6px;
+}
+.form-success-body {
+  font-size: 13px;
+  color: rgba(221,229,234,0.6);
+  line-height: 1.55;
+}
+
+/* ── What happens next strip ── */
+.process-strip {
+  background: var(--frost-white);
+  padding: 88px 80px;
+  border-top: 1px solid var(--frost-gray);
+}
+
+.process-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.process-header {
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+
+.process-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.process-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+}
+
+.process-title {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--near-black);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--frost-gray);
+  border: 1px solid var(--frost-gray);
+}
+
+.process-step {
+  background: var(--frost-white);
+  padding: 44px 40px;
+  position: relative;
+}
+
+.process-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--arctic-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms ease;
+}
+.process-step:hover::before { transform: scaleX(1); }
+
+.step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--arctic-blue);
+  margin-bottom: 20px;
+}
+
+.step-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--near-black);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.step-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.step-time {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,119,200,0.7);
+  background: rgba(0,119,200,0.07);
+  padding: 4px 10px;
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--near-black);
+  padding: 72px 64px 40px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 56px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-brand-logo { margin-bottom: 20px; }
+.footer-brand-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(221,229,234,0.4);
+  max-width: 280px;
+}
+.footer-col-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.3);
+  margin-bottom: 18px;
+}
+.footer-col-links { list-style: none; }
+.footer-col-links li { margin-bottom: 12px; }
+.footer-col-links a {
+  font-size: 13px;
+  color: rgba(221,229,234,0.5);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-col-links a:hover { color: #F7FAFC; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-copy { font-size: 12px; color: rgba(221,229,234,0.28); }
+.footer-legal { display: flex; gap: 28px; }
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(221,229,234,0.28);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-legal a:hover { color: rgba(221,229,234,0.6); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .page-header-inner,
+  .contact-main-inner { grid-template-columns: 1fr; gap: 56px; }
+  .page-header { padding: 64px 40px 60px; }
+  .contact-main { padding: 72px 40px; }
+  .process-strip { padding: 72px 40px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 32px; }
+  .nav-links { gap: 24px; }
+  .page-subhead { max-width: 100%; }
+  .contact-info-intro { max-width: 100%; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .page-header { padding: 52px 24px 48px; }
+  .contact-main { padding: 56px 24px; }
+  .process-strip { padding: 56px 24px; }
+  .footer { padding: 56px 24px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+  .form-row { grid-template-columns: 1fr; }
+  .process-header { flex-direction: column; gap: 12px; }
+  .header-stats { flex-direction: column; gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo" aria-label="MAGNA therma — home">
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix"
+            values="-1 0 0 0 1
+                     0 -1 0 0 1
+                     0  0 -1 0 1
+                     0  0  0 1 0"/>
+        </filter>
+      </defs>
+      <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#nav-to-white)" preserveAspectRatio="xMidYMid meet"/>
+      <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+      <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+      <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#technology">Technology</a></li>
+    <li><a href="index.html#applications">Applications</a></li>
+    <li><a href="index.html#specifications">Specs</a></li>
+    <li><a href="contact.html" aria-current="page">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Request Specs</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── Page header ── -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-left">
+        <div class="page-eyebrow">Direct Engagement</div>
+        <h1 class="page-title">Contact.</h1>
+      </div>
+      <div class="page-header-right">
+        <p class="page-subhead">MAGNA therma engages directly with qualified OEMs, system integrators, and procurement teams. No generic demos — only technical conversations with decision-makers.</p>
+        <div class="header-stats">
+          <div>
+            <div class="header-stat-value">2 Days</div>
+            <div class="header-stat-label">Response Target</div>
+          </div>
+          <div>
+            <div class="header-stat-value">Direct</div>
+            <div class="header-stat-label">Engineering Contact</div>
+          </div>
+          <div>
+            <div class="header-stat-value">Orem, UT</div>
+            <div class="header-stat-label">Headquarters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main contact section ── -->
+  <section class="contact-main">
+    <div class="contact-main-inner">
+
+      <!-- Left: info + channels -->
+      <div class="contact-info">
+        <p class="contact-info-intro">We work directly with engineering teams, procurement leads, and integration partners. Submit your inquiry below and a member of our team will follow up within two business days.</p>
+
+        <div class="contact-channels">
+          <div class="contact-channel">
+            <div class="channel-label">Technical Inquiries</div>
+            <div class="channel-value">
+              <a href="mailto:engineering@magnatherma.com">engineering@magnatherma.com</a>
+            </div>
+            <div class="channel-note">System specs, integration questions, engineering RFIs</div>
+          </div>
+          <div class="contact-channel">
+            <div class="channel-label">Sales &amp; OEM</div>
+            <div class="channel-value">
+              <a href="mailto:sales@magnatherma.com">sales@magnatherma.com</a>
+            </div>
+            <div class="channel-note">Volume pricing, partnership inquiries, OEM licensing</div>
+          </div>
+          <div class="contact-channel">
+            <div class="channel-label">Legal</div>
+            <div class="channel-value">
+              <a href="mailto:legal@magnatherma.com">legal@magnatherma.com</a>
+            </div>
+            <div class="channel-note">IP licensing, agreements, compliance</div>
+          </div>
+        </div>
+
+        <div class="location-block">
+          <div class="location-label">Headquarters</div>
+          <div class="location-name">MAGNA therma Inc.</div>
+          <div class="location-address">
+            Advanced Thermal Systems Division<br>
+            825 N 800 E<br>
+            Orem, UT 84097<br>
+            United States
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-form-wrap">
+        <div class="form-heading">Inquiry Form</div>
+
+        <div class="form-success" id="form-success">
+          <div class="form-success-title">Inquiry received.</div>
+          <div class="form-success-body">Our engineering team will review your submission and respond within two business days. Check your inbox — including spam, just in case.</div>
+        </div>
+
+        <form class="contact-form" id="contact-form" action="contact.php" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-first">First Name <span style="color:rgba(0,119,200,0.6)">*</span></label>
+              <input type="text" id="f-first" name="first_name" placeholder="Jake" autocomplete="given-name" required>
+            </div>
+            <div class="form-field">
+              <label for="f-last">Last Name <span style="color:rgba(0,119,200,0.6)">*</span></label>
+              <input type="text" id="f-last" name="last_name" placeholder="Smith" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-email">Work Email <span style="color:rgba(0,119,200,0.6)">*</span></label>
+              <input type="email" id="f-email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            </div>
+            <div class="form-field">
+              <label for="f-phone">Phone</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-company">Company <span style="color:rgba(0,119,200,0.6)">*</span></label>
+              <input type="text" id="f-company" name="company" placeholder="Company name" autocomplete="organization" required>
+            </div>
+            <div class="form-field">
+              <label for="f-title">Job Title</label>
+              <input type="text" id="f-title" name="job_title" placeholder="e.g. VP of Engineering" autocomplete="organization-title">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="f-type">Inquiry Type <span style="color:rgba(0,119,200,0.6)">*</span></label>
+            <select id="f-type" name="inquiry_type" required>
+              <option value="" disabled selected>Select inquiry type</option>
+              <option value="Technical Specification Request">Technical Specification Request</option>
+              <option value="OEM / Integration Partnership">OEM / Integration Partnership</option>
+              <option value="Volume Pricing">Volume Pricing</option>
+              <option value="Custom Thermal Solution">Custom Thermal Solution</option>
+              <option value="Investor / Media">Investor / Media</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-divider"></div>
+          <div class="form-field">
+            <label for="f-env">Application or Deployment Environment</label>
+            <input type="text" id="f-env" name="environment" placeholder="e.g. AI training cluster, mining operation, edge deployment">
+          </div>
+          <div class="form-field">
+            <label for="f-msg">Message <span style="color:rgba(0,119,200,0.6)">*</span></label>
+            <textarea id="f-msg" name="message" rows="5" placeholder="Describe your thermal requirements, compute density targets, or deployment scenario..." required></textarea>
+          </div>
+          <div class="form-submit">
+            <p class="form-note">All inquiries are reviewed by our engineering team within 2 business days.</p>
+            <button type="submit" class="btn-primary">Submit Inquiry</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── What happens next ── -->
+  <section class="process-strip">
+    <div class="process-strip-inner">
+      <div class="process-header">
+        <div class="process-eyebrow">After You Submit</div>
+        <h2 class="process-title">What happens next.</h2>
+      </div>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-title">Engineering Review</div>
+          <p class="step-body">Your inquiry goes directly to our engineering team, not a sales queue. We review the technical requirements and deployment context before responding.</p>
+          <span class="step-time">Within 2 business days</span>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-title">Direct Conversation</div>
+          <p class="step-body">A qualified member of our team reaches out to discuss your application in detail — thermal load requirements, integration constraints, and timeline.</p>
+          <span class="step-time">Scheduled at your convenience</span>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-title">Tailored Specification</div>
+          <p class="step-body">Where appropriate, we prepare a targeted technical specification package or proposal aligned to your specific deployment environment and performance requirements.</p>
+          <span class="step-time">Based on scope</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="footer-to-white" color-interpolation-filters="sRGB">
+                <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+              </filter>
+            </defs>
+            <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#footer-to-white)" preserveAspectRatio="xMidYMid meet"/>
+            <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+            <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+            <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+          </svg>
+        </div>
+        <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Technology</div>
+        <ul class="footer-col-links">
+          <li><a href="index.html#technology">Liquid Cooling</a></li>
+          <li><a href="index.html#technology">Thermal Distribution</a></li>
+          <li><a href="index.html#technology">Modular Systems</a></li>
+          <li><a href="index.html#technology">Monitoring</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Engineering</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="index.html#specifications">Datasheets</a></li>
+          <li><a href="#">Installation Guide</a></li>
+          <li><a href="#">Integration Notes</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="ip-notices.html">IP Notices</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Client-side validation with inline feedback
+const form = document.getElementById('contact-form');
+const success = document.getElementById('form-success');
+
+form.addEventListener('submit', function(e) {
+  let valid = true;
+  const required = form.querySelectorAll('[required]');
+
+  required.forEach(field => {
+    field.style.borderColor = '';
+    if (!field.value.trim()) {
+      field.style.borderColor = 'rgba(199,106,50,0.7)';
+      valid = false;
+    }
+  });
+
+  // Email format check
+  const email = document.getElementById('f-email');
+  if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    email.style.borderColor = 'rgba(199,106,50,0.7)';
+    valid = false;
+  }
+
+  if (!valid) {
+    e.preventDefault();
+    form.querySelector('[style*="rgba(199"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+</script>
+
+</body>
+</html>
