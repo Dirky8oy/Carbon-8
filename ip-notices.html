@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Terms of Use — MAGNA therma</title>
+<title>Intellectual Property Notice — MAGNA therma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -271,15 +271,36 @@ body {
   opacity: 0.7;
 }
 
-.sub-head {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--near-black);
-  margin: 22px 0 8px;
-  display: block;
+/* Patent pending badge */
+.patent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: 1px solid rgba(0,119,200,0.3);
+  background: rgba(0,119,200,0.05);
 }
-.sub-head:first-child { margin-top: 0; }
+.patent-badge-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+}
+.patent-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
 
 .contact-block {
   margin-top: 24px;
@@ -423,13 +444,9 @@ body {
     <div class="doc-header-inner">
       <div>
         <div class="doc-eyebrow">Legal Documentation</div>
-        <h1 class="doc-title">Terms<br>of Use.</h1>
+        <h1 class="doc-title">Intellectual<br>Property<br>Notice.</h1>
       </div>
       <div class="doc-meta">
-        <div class="doc-meta-item">
-          <div class="doc-meta-label">Effective Date</div>
-          <div class="doc-meta-value">January 1, 2026</div>
-        </div>
         <div class="doc-meta-item">
           <div class="doc-meta-label">Last Updated</div>
           <div class="doc-meta-value">January 1, 2026</div>
@@ -437,6 +454,10 @@ body {
         <div class="doc-meta-item">
           <div class="doc-meta-label">Entity</div>
           <div class="doc-meta-value">Magna Therma Inc.</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">Status</div>
+          <div class="doc-meta-value">Patent Pending</div>
         </div>
       </div>
     </div>
@@ -449,182 +470,112 @@ body {
     <aside class="doc-toc" aria-label="Table of contents">
       <div class="doc-toc-label">Contents</div>
       <ul class="doc-toc-list" id="toc-list">
-        <li><a href="#eligibility"><span class="toc-num">01</span> Eligibility</a></li>
-        <li><a href="#use-of-site"><span class="toc-num">02</span> Use of the Site</a></li>
-        <li><a href="#prohibited-conduct"><span class="toc-num">03</span> Prohibited Conduct</a></li>
-        <li><a href="#intellectual-property"><span class="toc-num">04</span> Intellectual Property</a></li>
-        <li><a href="#product-information"><span class="toc-num">05</span> Product Information</a></li>
-        <li><a href="#submissions"><span class="toc-num">06</span> Submissions &amp; Communications</a></li>
-        <li><a href="#third-party"><span class="toc-num">07</span> Third-Party Links</a></li>
-        <li><a href="#disclaimer"><span class="toc-num">08</span> Disclaimer of Warranties</a></li>
-        <li><a href="#liability"><span class="toc-num">09</span> Limitation of Liability</a></li>
-        <li><a href="#indemnification"><span class="toc-num">10</span> Indemnification</a></li>
-        <li><a href="#changes"><span class="toc-num">11</span> Changes to the Site</a></li>
-        <li><a href="#governing-law"><span class="toc-num">12</span> Governing Law</a></li>
-        <li><a href="#miscellaneous"><span class="toc-num">13</span> Miscellaneous</a></li>
-        <li><a href="#contact-us"><span class="toc-num">14</span> Contact Us</a></li>
+        <li><a href="#copyright"><span class="toc-num">01</span> Copyright</a></li>
+        <li><a href="#trademarks"><span class="toc-num">02</span> Trademarks</a></li>
+        <li><a href="#patents"><span class="toc-num">03</span> Patents</a></li>
+        <li><a href="#permitted-use"><span class="toc-num">04</span> Permitted Use</a></li>
+        <li><a href="#reservation"><span class="toc-num">05</span> Reservation of Rights</a></li>
+        <li><a href="#reporting"><span class="toc-num">06</span> Reporting Infringement</a></li>
+        <li><a href="#contact-us"><span class="toc-num">07</span> Contact Us</a></li>
       </ul>
     </aside>
 
-    <!-- Terms content -->
+    <!-- IP Notice content -->
     <main class="doc-content">
 
       <div class="policy-intro">
-        <p>These Terms of Use ("Terms") govern your access to and use of Magnatherma.com (the "Site"), operated by Magna Therma Inc. ("Magna Therma," "we," "us," or "our"). By accessing or using the Site, you agree to be bound by these Terms and by our <a href="privacy.html" style="color:var(--arctic-blue);text-decoration:none;">Privacy Policy</a>, which is incorporated here by reference. If you do not agree, please do not use the Site.</p>
+        <p>This Intellectual Property Notice describes the ownership of, and permitted use of, the content, marks, and technology presented on Magnatherma.com (the "Site"), operated by Magna Therma Inc. ("Magna Therma," "we," "us," or "our"). Your use of the Site is also governed by our <a href="terms.html" style="color:var(--arctic-blue);text-decoration:none;">Terms of Use</a> and <a href="privacy.html" style="color:var(--arctic-blue);text-decoration:none;">Privacy Policy</a>.</p>
       </div>
 
-      <section class="policy-section" id="eligibility">
+      <section class="policy-section" id="copyright">
         <div class="policy-section-hd">
           <span class="section-num">01</span>
-          <h2 class="section-title">Eligibility</h2>
+          <h2 class="section-title">Copyright</h2>
         </div>
         <div class="policy-body">
-          <p>The Site is intended for a business and professional audience. By using the Site, you represent that you are at least 18 years of age and that you have the authority to enter into these Terms on your own behalf or on behalf of the organization you represent.</p>
+          <p>© 2026 Magna Therma Inc. All rights reserved.</p>
+          <p>All content on the Site, including text, graphics, logos, icons, images, diagrams, illustrations, designs, specifications, and the selection, coordination, and arrangement of that content, is owned by Magna Therma or its licensors and is protected by United States and international copyright, trademark, and other intellectual property laws. Except as expressly permitted in this notice or our Terms of Use, no content may be copied, reproduced, modified, republished, distributed, transmitted, displayed, or otherwise used without our prior written permission.</p>
         </div>
       </section>
 
-      <section class="policy-section" id="use-of-site">
+      <section class="policy-section" id="trademarks">
         <div class="policy-section-hd">
           <span class="section-num">02</span>
-          <h2 class="section-title">Use of the Site</h2>
+          <h2 class="section-title">Trademarks</h2>
         </div>
         <div class="policy-body">
-          <p>We grant you a limited, non-exclusive, non-transferable, revocable license to access and use the Site for your own informational and business purposes, subject to these Terms. You agree to use the Site only for lawful purposes and in a manner that does not infringe the rights of, or restrict or inhibit the use of the Site by, any other party.</p>
+          <p>"MAGNA therma," the Magna Therma name, the split-color "MT" icon, the Magna Therma logo, "HyperTherm," and the tagline "Engineered for Thermal Performance," together with related names, marks, designs, and slogans, are trademarks of Magna Therma. You may not use these marks, in whole or in part, without our prior written permission, and you may not use them in any manner that is likely to cause confusion, that disparages Magna Therma, or that implies an endorsement, sponsorship, or affiliation that does not exist.</p>
+          <p>All other product names, company names, marks, and logos appearing on the Site are the property of their respective owners and are used for identification purposes only. Their use does not imply any affiliation with or endorsement by those owners.</p>
         </div>
       </section>
 
-      <section class="policy-section" id="prohibited-conduct">
+      <section class="policy-section" id="patents">
         <div class="policy-section-hd">
           <span class="section-num">03</span>
-          <h2 class="section-title">Prohibited Conduct</h2>
+          <h2 class="section-title">Patents</h2>
         </div>
         <div class="policy-body">
-          <p>You agree not to:</p>
+          <p>Aspects of the HyperTherm system and related thermal management and infrastructure technology are the subject of one or more pending patent applications.</p>
+          <div class="patent-badge">
+            <div class="patent-badge-dot"></div>
+            <span class="patent-badge-label">Patent Pending</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="policy-section" id="permitted-use">
+        <div class="policy-section-hd">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Permitted Use</h2>
+        </div>
+        <div class="policy-body">
+          <p>We grant you a limited, non-exclusive, non-transferable, revocable license to view and to print or download individual pages of the Site for your own informational and internal business purposes, provided that you do not remove or alter any copyright, trademark, or other proprietary notices, and that you do not use the content in any way that is inconsistent with this notice or our Terms of Use.</p>
+          <p>This limited license does not permit, and you may not:</p>
           <ul>
-            <li>Use the Site in any way that violates any applicable law or regulation</li>
-            <li>Copy, reproduce, distribute, republish, or create derivative works from Site content except as expressly permitted in these Terms</li>
-            <li>Reverse engineer, decompile, or attempt to extract source code or underlying technology from any part of the Site</li>
-            <li>Use any automated means, including robots, scrapers, or data-mining tools, to access or collect data from the Site without our prior written consent</li>
-            <li>Introduce viruses, malware, or other harmful code, or otherwise interfere with or disrupt the Site, its servers, or connected networks</li>
-            <li>Attempt to gain unauthorized access to any portion of the Site, other accounts, or any systems or networks connected to the Site</li>
-            <li>Use the Site to transmit unsolicited advertising, spam, or other unauthorized communications</li>
-            <li>Misrepresent your identity or affiliation with any person or organization</li>
+            <li>Use any content for commercial purposes without our prior written permission</li>
+            <li>Reproduce, distribute, publicly display, or create derivative works from any content except as expressly permitted above</li>
+            <li>Frame, mirror, or incorporate any part of the Site into another website or service without our prior written permission</li>
+            <li>Use any data-mining, scraping, robots, or similar automated tools to access or collect content from the Site</li>
+            <li>Reverse engineer, decompile, or attempt to derive the design, structure, or underlying technology of any product, system, or method described on the Site</li>
           </ul>
         </div>
       </section>
 
-      <section class="policy-section" id="intellectual-property">
-        <div class="policy-section-hd">
-          <span class="section-num">04</span>
-          <h2 class="section-title">Intellectual Property</h2>
-        </div>
-        <div class="policy-body">
-          <p>The Site and all of its content, including text, graphics, logos, icons, images, designs, specifications, and the selection and arrangement thereof, are owned by Magna Therma or its licensors and are protected by United States and international intellectual property laws.</p>
-          <p>"MAGNA therma," the Magna Therma name, the Magna Therma logo and icon, and related marks are trademarks of Magna Therma. You may not use these marks without our prior written permission. All other trademarks appearing on the Site are the property of their respective owners.</p>
-          <p>Except for the limited license granted in these Terms, nothing on the Site grants you any right, title, or interest in any content, technology, or intellectual property of Magna Therma or its licensors.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="product-information">
+      <section class="policy-section" id="reservation">
         <div class="policy-section-hd">
           <span class="section-num">05</span>
-          <h2 class="section-title">Product Information and Forward-Looking Statements</h2>
+          <h2 class="section-title">Reservation of Rights</h2>
         </div>
         <div class="policy-body">
-          <p>The Site describes products, technology, designs, and capabilities that are under development. Product descriptions, specifications, performance figures, and projected metrics presented on the Site are forward-looking, reflect current design targets and intentions, and are provided for informational purposes only. They are subject to change without notice as development, testing, and validation progress.</p>
-          <p>Such information does not constitute a warranty, guarantee, representation of current capability, or binding commitment, and should not be relied upon as a promise of future performance or availability. No content on the Site constitutes an offer to sell, a solicitation of an offer to buy, or a binding quotation for any product or service. Any sale, lease, or other transaction will be governed solely by a separate written agreement executed by the parties.</p>
+          <p>Nothing on the Site or in this notice should be construed as granting, by implication, estoppel, or otherwise, any license or right to use any content, mark, patent, or other intellectual property of Magna Therma or its licensors, except for the limited license expressly granted above. All rights not expressly granted are reserved.</p>
         </div>
       </section>
 
-      <section class="policy-section" id="submissions">
+      <section class="policy-section" id="reporting">
         <div class="policy-section-hd">
           <span class="section-num">06</span>
-          <h2 class="section-title">Submissions and Communications</h2>
+          <h2 class="section-title">Reporting Infringement</h2>
         </div>
         <div class="policy-body">
-          <p>If you submit any information, inquiry, feedback, or other communication to us through the Site, you represent that you have the right to do so and that the content is accurate and does not infringe the rights of any third party. We may use feedback and suggestions you provide for any purpose without obligation or compensation to you. Information you submit is handled in accordance with our Privacy Policy.</p>
-          <p>Please do not submit confidential or proprietary information through the Site. Any information you submit through the Site is not treated as confidential unless covered by a separate written agreement.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="third-party">
-        <div class="policy-section-hd">
-          <span class="section-num">07</span>
-          <h2 class="section-title">Third-Party Links</h2>
-        </div>
-        <div class="policy-body">
-          <p>The Site may contain links to third-party websites and resources. We provide these links for convenience only and do not endorse and are not responsible for the content, products, or practices of any third party. Your use of third-party sites is at your own risk and subject to their terms and policies.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="disclaimer">
-        <div class="policy-section-hd">
-          <span class="section-num">08</span>
-          <h2 class="section-title">Disclaimer of Warranties</h2>
-        </div>
-        <div class="policy-body">
-          <p>The Site and all content are provided on an "as is" and "as available" basis, without warranties of any kind, whether express, implied, or statutory. To the fullest extent permitted by law, we disclaim all warranties, including implied warranties of merchantability, fitness for a particular purpose, title, and non-infringement, and any warranty that the Site will be uninterrupted, error-free, secure, or free of viruses or other harmful components. We make no warranty regarding the accuracy, completeness, reliability, or timeliness of any content on the Site.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="liability">
-        <div class="policy-section-hd">
-          <span class="section-num">09</span>
-          <h2 class="section-title">Limitation of Liability</h2>
-        </div>
-        <div class="policy-body">
-          <p>To the fullest extent permitted by law, Magna Therma and its officers, members, employees, agents, and affiliates will not be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages, or for any loss of profits, revenue, data, or business opportunities, arising out of or relating to your use of, or inability to use, the Site, whether based on warranty, contract, tort, or any other legal theory, even if we have been advised of the possibility of such damages. In no event will our total aggregate liability arising out of or relating to the Site exceed one hundred U.S. dollars ($100).</p>
-          <p>Some jurisdictions do not allow the exclusion or limitation of certain warranties or liabilities, so some of the above limitations may not apply to you.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="indemnification">
-        <div class="policy-section-hd">
-          <span class="section-num">10</span>
-          <h2 class="section-title">Indemnification</h2>
-        </div>
-        <div class="policy-body">
-          <p>You agree to indemnify, defend, and hold harmless Magna Therma and its officers, members, employees, agents, and affiliates from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys' fees, arising out of or in any way connected with your access to or use of the Site, your violation of these Terms, or your violation of any rights of a third party.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="changes">
-        <div class="policy-section-hd">
-          <span class="section-num">11</span>
-          <h2 class="section-title">Changes to the Site and Terms</h2>
-        </div>
-        <div class="policy-body">
-          <p>We may modify, suspend, or discontinue the Site or any part of it at any time without notice. We may also revise these Terms from time to time. When we do, we will update the "Last Updated" date above. Your continued use of the Site after revised Terms take effect constitutes acceptance of the changes. We encourage you to review these Terms periodically.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="governing-law">
-        <div class="policy-section-hd">
-          <span class="section-num">12</span>
-          <h2 class="section-title">Governing Law and Venue</h2>
-        </div>
-        <div class="policy-body">
-          <p>These Terms are governed by the laws of the State of Wyoming, without regard to its conflict-of-laws principles. You agree that any dispute arising out of or relating to these Terms or the Site will be brought exclusively in the state or federal courts located in Wyoming, and you consent to the personal jurisdiction of those courts.</p>
-        </div>
-      </section>
-
-      <section class="policy-section" id="miscellaneous">
-        <div class="policy-section-hd">
-          <span class="section-num">13</span>
-          <h2 class="section-title">Miscellaneous</h2>
-        </div>
-        <div class="policy-body">
-          <p>If any provision of these Terms is found to be unenforceable, that provision will be limited or severed to the minimum extent necessary, and the remaining provisions will remain in full force and effect. Our failure to enforce any provision is not a waiver of that provision. These Terms, together with the Privacy Policy, constitute the entire agreement between you and Magna Therma regarding the Site and supersede any prior agreements on that subject. You may not assign these Terms without our prior written consent; we may assign them freely.</p>
+          <p>We respect the intellectual property rights of others and expect users of the Site to do the same. If you believe that content on the Site infringes a copyright or other intellectual property right that you own or control, please send a written notice to the contact below that includes:</p>
+          <ul>
+            <li>A description of the work or right you believe has been infringed</li>
+            <li>A description of the material on the Site that you claim is infringing, with enough detail to allow us to locate it</li>
+            <li>Your name, mailing address, telephone number, and email address</li>
+            <li>A statement that you have a good-faith belief that the use is not authorized by the rights holder, its agent, or the law</li>
+            <li>A statement that the information in your notice is accurate, and, under penalty of perjury, that you are the rights holder or are authorized to act on the rights holder's behalf</li>
+            <li>Your physical or electronic signature</li>
+          </ul>
         </div>
       </section>
 
       <section class="policy-section" id="contact-us">
         <div class="policy-section-hd">
-          <span class="section-num">14</span>
+          <span class="section-num">07</span>
           <h2 class="section-title">Contact Us</h2>
         </div>
         <div class="policy-body">
-          <p>If you have questions about these Terms, please contact us at:</p>
+          <p>For questions about this notice, to request permission to use our content or marks, or to report infringement, please contact us at:</p>
           <div class="contact-block">
             <div class="contact-block-label">Legal Contact</div>
             <p>
@@ -690,8 +641,8 @@ body {
       <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
       <div class="footer-legal">
         <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html" aria-current="page">Terms of Use</a>
-        <a href="ip-notices.html">IP Notices</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="ip-notices.html" aria-current="page">IP Notices</a>
       </div>
     </div>
   </footer>
