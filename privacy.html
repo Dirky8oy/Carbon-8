@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — MAGNA therma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --near-black:   #0B0B0C;
+  --arctic-blue:  #0077C8;
+  --glacial-cyan: #39D5FF;
+  --deep-navy:    #071E33;
+  --graphite:     #25282B;
+  --frost-gray:   #DDE5EA;
+  --frost-white:  #F7FAFC;
+  --helv: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--helv);
+  background: var(--frost-white);
+  color: var(--near-black);
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 72px;
+  background: rgba(7,30,51,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo svg { display: block; overflow: visible; }
+.nav-links { display: flex; align-items: center; gap: 48px; list-style: none; }
+.nav-links a {
+  font-family: var(--helv);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247,250,252,0.7);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.nav-links a:hover { color: #F7FAFC; }
+.nav-cta {
+  font-family: var(--helv);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #F7FAFC;
+  background: var(--arctic-blue);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.nav-cta:hover { background: #0066aa; }
+
+/* ── Page wrap ── */
+.page-wrap { padding-top: 72px; }
+
+/* ── Document header ── */
+.doc-header {
+  background: var(--near-black);
+  padding: 88px 64px 76px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.doc-header-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: end;
+}
+.doc-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.doc-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+}
+.doc-title {
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: #F7FAFC;
+  text-wrap: balance;
+}
+.doc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+.doc-meta-item { text-align: right; }
+.doc-meta-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(221,229,234,0.35);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.doc-meta-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(221,229,234,0.8);
+}
+
+/* ── Two-column layout ── */
+.doc-body {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 64px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ── TOC ── */
+.doc-toc {
+  position: sticky;
+  top: calc(72px + 52px);
+  padding: 52px 0 80px;
+}
+.doc-toc-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(37,40,43,0.38);
+  margin-bottom: 18px;
+}
+.doc-toc-list {
+  list-style: none;
+  border-left: 1px solid var(--frost-gray);
+}
+.doc-toc-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 6px 0 6px 14px;
+  font-size: 12px;
+  color: #999;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  line-height: 1.45;
+  transition: color 150ms, border-color 150ms;
+}
+.doc-toc-list a:hover { color: var(--near-black); border-left-color: rgba(0,0,0,0.18); }
+.doc-toc-list a.active { color: var(--arctic-blue); border-left-color: var(--arctic-blue); font-weight: 500; }
+.toc-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--arctic-blue);
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 150ms;
+}
+.doc-toc-list a.active .toc-num { opacity: 1; }
+
+/* ── Policy content ── */
+.doc-content { padding: 52px 0 120px; }
+
+.policy-intro {
+  padding: 0 0 48px;
+  border-bottom: 1px solid var(--frost-gray);
+  margin-bottom: 0;
+}
+.policy-intro p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #555;
+  max-width: 660px;
+  margin-bottom: 16px;
+}
+.policy-intro p:last-child { margin-bottom: 0; }
+
+.policy-section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--frost-gray);
+  scroll-margin-top: calc(72px + 32px);
+}
+.policy-section:last-child { border-bottom: none; padding-bottom: 0; }
+
+.policy-section-hd {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--arctic-blue);
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+.section-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--near-black);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.policy-body {
+  font-size: 15px;
+  line-height: 1.78;
+  color: #484848;
+  max-width: 660px;
+}
+.policy-body p { margin-bottom: 14px; }
+.policy-body p:last-child { margin-bottom: 0; }
+
+.policy-body ul {
+  list-style: none;
+  margin: 14px 0 14px 0;
+  padding: 0;
+}
+.policy-body ul li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 9px;
+}
+.policy-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 7px;
+  height: 1px;
+  background: var(--arctic-blue);
+  opacity: 0.7;
+}
+
+.sub-head {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--near-black);
+  margin: 22px 0 8px;
+  display: block;
+}
+.sub-head:first-child { margin-top: 0; }
+
+/* Contact block */
+.contact-block {
+  margin-top: 24px;
+  padding: 24px 28px;
+  border: 1px solid var(--frost-gray);
+  border-left: 3px solid var(--arctic-blue);
+  background: #fff;
+}
+.contact-block-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 10px;
+}
+.contact-block p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #484848;
+  margin: 0;
+}
+.contact-block a { color: var(--arctic-blue); text-decoration: none; }
+.contact-block a:hover { text-decoration: underline; }
+
+/* ── Footer ── */
+.footer {
+  background: var(--near-black);
+  padding: 72px 64px 40px;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 56px;
+  max-width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-brand-logo { margin-bottom: 20px; }
+.footer-brand-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(221,229,234,0.4);
+  max-width: 280px;
+}
+.footer-col-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.3);
+  margin-bottom: 18px;
+}
+.footer-col-links { list-style: none; }
+.footer-col-links li { margin-bottom: 12px; }
+.footer-col-links a {
+  font-size: 13px;
+  color: rgba(221,229,234,0.5);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-col-links a:hover { color: #F7FAFC; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.footer-copy { font-size: 12px; color: rgba(221,229,234,0.28); }
+.footer-legal { display: flex; gap: 28px; }
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(221,229,234,0.28);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-legal a:hover { color: rgba(221,229,234,0.6); }
+.footer-legal a[aria-current="page"] { color: rgba(221,229,234,0.65); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .doc-body { grid-template-columns: 1fr; padding: 0 40px; }
+  .doc-toc { display: none; }
+  .doc-header { padding: 64px 40px 56px; }
+  .doc-header-inner { grid-template-columns: 1fr; gap: 36px; }
+  .doc-meta { align-items: flex-start; }
+  .doc-meta-item { text-align: left; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 32px; }
+  .nav-links { gap: 24px; }
+}
+@media (max-width: 640px) {
+  .nav-links, .nav-cta { display: none; }
+  .doc-body { padding: 0 24px; }
+  .doc-header { padding: 52px 24px 48px; }
+  .footer { padding: 56px 24px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo" aria-label="MAGNA therma — home">
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix"
+            values="-1 0 0 0 1
+                     0 -1 0 0 1
+                     0  0 -1 0 1
+                     0  0  0 1 0"/>
+        </filter>
+      </defs>
+      <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#nav-to-white)" preserveAspectRatio="xMidYMid meet"/>
+      <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+      <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+      <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#technology">Technology</a></li>
+    <li><a href="index.html#applications">Applications</a></li>
+    <li><a href="index.html#specifications">Specs</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Request Specs</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── Document header ── -->
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <div>
+        <div class="doc-eyebrow">Legal Documentation</div>
+        <h1 class="doc-title">Privacy<br>Policy.</h1>
+      </div>
+      <div class="doc-meta">
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">Effective Date</div>
+          <div class="doc-meta-value">January 1, 2026</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">Last Updated</div>
+          <div class="doc-meta-value">January 1, 2026</div>
+        </div>
+        <div class="doc-meta-item">
+          <div class="doc-meta-label">Entity</div>
+          <div class="doc-meta-value">Magna Therma Inc.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column body ── -->
+  <div class="doc-body">
+
+    <!-- Sticky TOC -->
+    <aside class="doc-toc" aria-label="Table of contents">
+      <div class="doc-toc-label">Contents</div>
+      <ul class="doc-toc-list" id="toc-list">
+        <li><a href="#scope"><span class="toc-num">01</span> Scope</a></li>
+        <li><a href="#information-collected"><span class="toc-num">02</span> Information We Collect</a></li>
+        <li><a href="#how-we-use"><span class="toc-num">03</span> How We Use Your Information</a></li>
+        <li><a href="#cookies"><span class="toc-num">04</span> Cookies &amp; Tracking</a></li>
+        <li><a href="#sharing"><span class="toc-num">05</span> How We Share Information</a></li>
+        <li><a href="#retention"><span class="toc-num">06</span> Data Retention</a></li>
+        <li><a href="#security"><span class="toc-num">07</span> Data Security</a></li>
+        <li><a href="#rights"><span class="toc-num">08</span> Your Privacy Rights</a></li>
+        <li><a href="#transfers"><span class="toc-num">09</span> International Transfers</a></li>
+        <li><a href="#third-party"><span class="toc-num">10</span> Third-Party Links</a></li>
+        <li><a href="#children"><span class="toc-num">11</span> Children's Privacy</a></li>
+        <li><a href="#dnt"><span class="toc-num">12</span> Do Not Track</a></li>
+        <li><a href="#changes"><span class="toc-num">13</span> Changes to This Policy</a></li>
+        <li><a href="#contact-us"><span class="toc-num">14</span> Contact Us</a></li>
+      </ul>
+    </aside>
+
+    <!-- Policy content -->
+    <main class="doc-content">
+
+      <div class="policy-intro">
+        <p>Magna Therma Inc. ("Magna Therma," "we," "us," or "our") respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit Magnatherma.com (the "Site") or otherwise communicate with us.</p>
+        <p>Please read this policy carefully. By accessing or using the Site, you agree to the practices described here. If you do not agree, please do not use the Site.</p>
+      </div>
+
+      <section class="policy-section" id="scope">
+        <div class="policy-section-hd">
+          <span class="section-num">01</span>
+          <h2 class="section-title">Scope</h2>
+        </div>
+        <div class="policy-body">
+          <p>This Privacy Policy applies to information collected through the Site, through email and other electronic communications between you and Magna Therma, and through any forms, inquiries, or subscriptions you submit to us. It does not apply to third-party websites or services that may be linked from the Site.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="information-collected">
+        <div class="policy-section-hd">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Information We Collect</h2>
+        </div>
+        <div class="policy-body">
+          <p>We collect information in two ways: information you provide directly, and information collected automatically when you use the Site.</p>
+          <span class="sub-head">Information you provide to us.</span>
+          <p>This may include your name, company or organization, job title, email address, telephone number, and the contents of any message, inquiry, or request you submit through a contact form, demonstration request, newsletter signup, or direct correspondence.</p>
+          <span class="sub-head">Information collected automatically.</span>
+          <p>When you visit the Site, we and our service providers may automatically collect certain technical information, including your IP address, browser type and version, device type and operating system, referring and exit pages, pages viewed, links clicked, and the dates and times of your visits. We collect this information using cookies and similar technologies described in Section 4.</p>
+          <p>We do not intentionally collect sensitive personal information (such as government identifiers, financial account numbers, health information, or precise geolocation) through the Site. Please do not submit such information to us through the Site.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="how-we-use">
+        <div class="policy-section-hd">
+          <span class="section-num">03</span>
+          <h2 class="section-title">How We Use Your Information</h2>
+        </div>
+        <div class="policy-body">
+          <p>We use the information we collect to:</p>
+          <ul>
+            <li>Respond to your inquiries, requests, and correspondence</li>
+            <li>Provide information about our products, technology, and services that you request</li>
+            <li>Send newsletters, updates, and marketing communications where you have opted in or where otherwise permitted by law</li>
+            <li>Operate, maintain, analyze, and improve the Site and our communications</li>
+            <li>Monitor and protect the security and integrity of the Site</li>
+            <li>Comply with legal obligations and enforce our terms and policies</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section" id="cookies">
+        <div class="policy-section-hd">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Cookies and Tracking Technologies</h2>
+        </div>
+        <div class="policy-body">
+          <p>Cookies are small data files stored on your device. We use cookies and similar technologies to operate the Site, remember your preferences, understand how visitors use the Site, and improve performance. We may use both session cookies, which expire when you close your browser, and persistent cookies, which remain until they are deleted or expire.</p>
+          <p>We may use third-party analytics services (for example, Google Analytics) to help us understand how the Site is used. These providers may set their own cookies and collect information governed by their own privacy policies.</p>
+          <p>Most browsers allow you to refuse or delete cookies through their settings. Disabling cookies may affect the functionality of the Site.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="sharing">
+        <div class="policy-section-hd">
+          <span class="section-num">05</span>
+          <h2 class="section-title">How We Share Your Information</h2>
+        </div>
+        <div class="policy-body">
+          <p>We do not sell your personal information. We may share information in the following circumstances:</p>
+          <span class="sub-head">Service providers.</span>
+          <p>We share information with third-party vendors who perform services on our behalf, such as website hosting, analytics, email delivery, and customer relationship management. These providers are permitted to use the information only to perform services for us.</p>
+          <span class="sub-head">Legal and safety.</span>
+          <p>We may disclose information where required by law, regulation, legal process, or governmental request, or where we believe disclosure is reasonably necessary to protect our rights, property, or safety, or that of others.</p>
+          <span class="sub-head">Business transfers.</span>
+          <p>If Magna Therma is involved in a merger, acquisition, financing, reorganization, or sale of assets, information may be transferred as part of that transaction, subject to this Privacy Policy or a successor policy.</p>
+          <span class="sub-head">With your consent.</span>
+          <p>We may share information for other purposes with your consent or at your direction.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="retention">
+        <div class="policy-section-hd">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Data Retention</h2>
+        </div>
+        <div class="policy-body">
+          <p>We retain personal information for as long as necessary to fulfill the purposes described in this policy, to comply with our legal obligations, resolve disputes, and enforce our agreements. When information is no longer needed, we take reasonable steps to delete or de-identify it.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="security">
+        <div class="policy-section-hd">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Data Security</h2>
+        </div>
+        <div class="policy-body">
+          <p>We maintain reasonable administrative, technical, and physical safeguards designed to protect personal information against unauthorized access, loss, misuse, or alteration. No method of transmission over the internet or electronic storage is fully secure, however, and we cannot guarantee absolute security.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="rights">
+        <div class="policy-section-hd">
+          <span class="section-num">08</span>
+          <h2 class="section-title">Your Privacy Rights</h2>
+        </div>
+        <div class="policy-body">
+          <p>Depending on where you reside, you may have certain rights regarding your personal information.</p>
+          <span class="sub-head">California residents.</span>
+          <p>Under the California Consumer Privacy Act, as amended by the California Privacy Rights Act (CCPA/CPRA), California residents may have the right to know the categories and specific pieces of personal information we collect, to request deletion of personal information, to request correction of inaccurate personal information, and to opt out of the sale or sharing of personal information. We do not sell personal information, and we do not share it for cross-context behavioral advertising as those terms are defined under California law. You also have the right not to receive discriminatory treatment for exercising these rights.</p>
+          <span class="sub-head">Other U.S. state residents.</span>
+          <p>Residents of certain other states, including Virginia, Colorado, Connecticut, Utah, and others with comprehensive consumer privacy laws, may have similar rights to access, correct, delete, or obtain a copy of their personal information, and to opt out of certain processing.</p>
+          <span class="sub-head">EEA, U.K., and Switzerland.</span>
+          <p>If you are located in the European Economic Area, the United Kingdom, or Switzerland, you may have rights under the General Data Protection Regulation (GDPR) or equivalent laws, including the rights to access, rectify, erase, restrict, or object to processing, and the right to data portability. Where we rely on your consent, you may withdraw it at any time. You also have the right to lodge a complaint with a supervisory authority. Our legal bases for processing include your consent, our legitimate interests in operating and promoting our business, and compliance with legal obligations.</p>
+          <span class="sub-head">Exercising your rights.</span>
+          <p>To exercise any of these rights, contact us using the details in Section 14. We may need to verify your identity before responding. You may also use an authorized agent where permitted by law.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="transfers">
+        <div class="policy-section-hd">
+          <span class="section-num">09</span>
+          <h2 class="section-title">International Data Transfers</h2>
+        </div>
+        <div class="policy-body">
+          <p>Magna Therma is based in the United States, and the information we collect is processed and stored in the United States. If you access the Site from outside the United States, you understand that your information may be transferred to and processed in a country whose data protection laws may differ from those of your own jurisdiction.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="third-party">
+        <div class="policy-section-hd">
+          <span class="section-num">10</span>
+          <h2 class="section-title">Third-Party Links</h2>
+        </div>
+        <div class="policy-body">
+          <p>The Site may contain links to third-party websites and services. We are not responsible for the privacy practices or content of those third parties. We encourage you to review the privacy policies of any third-party sites you visit.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="children">
+        <div class="policy-section-hd">
+          <span class="section-num">11</span>
+          <h2 class="section-title">Children's Privacy</h2>
+        </div>
+        <div class="policy-body">
+          <p>The Site is intended for a business and professional audience and is not directed to children under the age of 16. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us and we will take appropriate steps to delete it.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="dnt">
+        <div class="policy-section-hd">
+          <span class="section-num">12</span>
+          <h2 class="section-title">Do Not Track</h2>
+        </div>
+        <div class="policy-body">
+          <p>Some browsers offer a "Do Not Track" signal. Because there is no common industry standard for interpreting these signals, the Site does not currently respond to them. We will update this section if that practice changes.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="changes">
+        <div class="policy-section-hd">
+          <span class="section-num">13</span>
+          <h2 class="section-title">Changes to This Privacy Policy</h2>
+        </div>
+        <div class="policy-body">
+          <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last Updated" date above. Material changes will be indicated as appropriate. Your continued use of the Site after an update takes effect constitutes acceptance of the revised policy.</p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="contact-us">
+        <div class="policy-section-hd">
+          <span class="section-num">14</span>
+          <h2 class="section-title">Contact Us</h2>
+        </div>
+        <div class="policy-body">
+          <p>If you have questions about this Privacy Policy or our privacy practices, or wish to exercise your rights, please contact us at:</p>
+          <div class="contact-block">
+            <div class="contact-block-label">Legal Contact</div>
+            <p>
+              <strong>Magna Therma Inc.</strong><br>
+              Email: <a href="mailto:legal@magnatherma.com">legal@magnatherma.com</a><br>
+              Mailing address: 825 N 800 E, Orem, UT 84097
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="footer-to-white" color-interpolation-filters="sRGB">
+                <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+              </filter>
+            </defs>
+            <image href="assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#footer-to-white)" preserveAspectRatio="xMidYMid meet"/>
+            <image href="assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+            <image href="assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+            <image href="assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+          </svg>
+        </div>
+        <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Technology</div>
+        <ul class="footer-col-links">
+          <li><a href="index.html#technology">Liquid Cooling</a></li>
+          <li><a href="index.html#technology">Thermal Distribution</a></li>
+          <li><a href="index.html#technology">Modular Systems</a></li>
+          <li><a href="index.html#technology">Monitoring</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Engineering</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="index.html#specifications">Datasheets</a></li>
+          <li><a href="#">Installation Guide</a></li>
+          <li><a href="#">Integration Notes</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="privacy.html" aria-current="page">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">IP Notices</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.policy-section[id]');
+const tocLinks = document.querySelectorAll('#toc-list a');
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`#toc-list a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-72px 0px -55% 0px', threshold: 0 });
+
+sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
