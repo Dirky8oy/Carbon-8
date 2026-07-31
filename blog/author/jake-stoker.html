@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jake Stoker | Insights | MAGNA therma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --near-black:   #0B0B0C;
+  --arctic-blue:  #0077C8;
+  --glacial-cyan: #39D5FF;
+  --deep-navy:    #071E33;
+  --graphite:     #25282B;
+  --frost-gray:   #DDE5EA;
+  --frost-white:  #F7FAFC;
+  --helv: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--helv);
+  background: var(--near-black);
+  color: var(--frost-white);
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 72px;
+  background: rgba(7,30,51,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo svg { display: block; overflow: visible; }
+.nav-links { display: flex; align-items: center; gap: 48px; list-style: none; }
+.nav-links a {
+  font-family: var(--helv);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247,250,252,0.7);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] { color: #F7FAFC; }
+.nav-cta {
+  font-family: var(--helv);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #F7FAFC;
+  background: var(--arctic-blue);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.nav-cta:hover { background: #0066aa; }
+
+/* ── Page wrap ── */
+.page-wrap { padding-top: 72px; }
+
+/* ── Author hero ── */
+.author-hero {
+  background: var(--near-black);
+  padding: 96px 80px 88px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.author-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,119,200,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,119,200,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.author-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 100px;
+  align-items: start;
+}
+
+/* ── Left: identity ── */
+.author-identity {}
+
+.author-initials {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--arctic-blue);
+  background: rgba(0,119,200,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  flex-shrink: 0;
+}
+.author-initials span {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--arctic-blue);
+}
+
+.author-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.author-role::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: var(--frost-white);
+  text-wrap: balance;
+  margin-bottom: 40px;
+}
+
+/* ── Stats row ── */
+.author-stats {
+  display: flex;
+  border-top: 1px solid rgba(221,229,234,0.1);
+  margin-bottom: 36px;
+}
+.author-stat {
+  flex: 1;
+  padding: 20px 0;
+}
+.author-stat:not(:first-child) {
+  padding-left: 24px;
+  border-left: 1px solid rgba(221,229,234,0.1);
+}
+.author-stat:not(:last-child) { padding-right: 24px; }
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--frost-white);
+  margin-bottom: 5px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.38);
+}
+
+/* ── Bio link ── */
+.author-bio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  text-decoration: none;
+  transition: gap 220ms ease, color 200ms;
+}
+.author-bio-link:hover { gap: 15px; color: #3399e0; }
+.author-bio-link svg { flex-shrink: 0; transition: transform 220ms ease; }
+.author-bio-link:hover svg { transform: translateX(3px); }
+
+/* ── Right: bio column ── */
+.author-bio-col {}
+
+.author-bio {
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(221,229,234,0.6);
+  max-width: 520px;
+}
+
+/* ── Posts section ── */
+.posts-section {
+  background: var(--deep-navy);
+  padding: 104px 80px;
+  border-top: 1px solid rgba(0,119,200,0.12);
+}
+.posts-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.posts-header { margin-bottom: 56px; }
+
+.posts-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.posts-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--arctic-blue);
+  flex-shrink: 0;
+}
+
+.posts-heading {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--frost-white);
+  text-wrap: balance;
+}
+
+/* ── Post card grid ── */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.post-card {
+  background: #13161A;
+  border: 1px solid rgba(221,229,234,0.07);
+  border-top: 2px solid transparent;
+  padding: 32px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: border-top-color 250ms;
+}
+.post-card:hover { border-top-color: var(--arctic-blue); }
+
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.post-category {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--arctic-blue);
+}
+
+.post-read-time {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(0,119,200,0.7);
+  background: rgba(0,119,200,0.08);
+  padding: 3px 8px;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #F7FAFC;
+  line-height: 1.3;
+  text-wrap: balance;
+  margin-bottom: 14px;
+}
+
+.post-excerpt {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(221,229,234,0.55);
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.post-date {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(221,229,234,0.35);
+  letter-spacing: 0.04em;
+}
+
+/* ── Back link ── */
+.posts-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.45);
+  text-decoration: none;
+  transition: color 200ms, gap 220ms ease;
+}
+.posts-back:hover { color: var(--frost-white); gap: 14px; }
+.posts-back svg { flex-shrink: 0; transition: transform 220ms ease; }
+.posts-back:hover svg { transform: translateX(-3px); }
+
+/* ── Footer ── */
+.footer {
+  background: var(--near-black);
+  padding: 72px 64px 40px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 56px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-brand-logo { margin-bottom: 20px; }
+.footer-brand-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(221,229,234,0.4);
+  max-width: 280px;
+}
+.footer-col-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(221,229,234,0.3);
+  margin-bottom: 18px;
+}
+.footer-col-links { list-style: none; }
+.footer-col-links li { margin-bottom: 12px; }
+.footer-col-links a {
+  font-size: 13px;
+  color: rgba(221,229,234,0.5);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-col-links a:hover { color: #F7FAFC; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-copy { font-size: 12px; color: rgba(221,229,234,0.28); }
+.footer-legal { display: flex; gap: 28px; }
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(221,229,234,0.28);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-legal a:hover { color: rgba(221,229,234,0.6); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .nav { padding: 0 32px; }
+  .nav-links { gap: 24px; }
+  .author-hero { padding: 72px 40px 68px; }
+  .author-hero-inner { grid-template-columns: 1fr; gap: 52px; }
+  .author-bio { max-width: 100%; }
+  .posts-section { padding: 80px 40px; }
+  .footer { padding: 64px 40px 36px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; margin-bottom: 48px; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .author-hero { padding: 56px 24px 52px; }
+  .author-name { margin-bottom: 28px; }
+  .posts-section { padding: 60px 24px; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .footer { padding: 56px 24px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <a href="../../index.html" class="nav-logo" aria-label="MAGNA therma home">
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+        </filter>
+      </defs>
+      <image href="../../assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#nav-to-white)" preserveAspectRatio="xMidYMid meet"/>
+      <image href="../../assets/icon-blue.png" x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+      <image href="../../assets/magna.png" x="60" y="0" width="138" height="18" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+      <image href="../../assets/therma.png" x="60" y="22" width="63" height="14" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#technology">Technology</a></li>
+    <li><a href="../../index.html#applications">Applications</a></li>
+    <li><a href="../../index.html#specifications">Specs</a></li>
+    <li><a href="../../about.html">About</a></li>
+    <li><a href="../index.html" aria-current="page">Insights</a></li>
+    <li><a href="../../contact.html">Contact</a></li>
+  </ul>
+  <a href="../../contact.html" class="nav-cta">Request Specs</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── Author hero ── -->
+  <header class="author-hero">
+    <div class="author-hero-inner">
+
+      <div class="author-identity">
+        <div class="author-initials" aria-hidden="true"><span>JS</span></div>
+        <div class="author-role">Co-Founder &amp; Managing Member</div>
+        <h1 class="author-name">Jake Stoker</h1>
+        <div class="author-stats">
+          <div class="author-stat">
+            <div class="stat-value">3 Articles</div>
+            <div class="stat-label">Published</div>
+          </div>
+          <div class="author-stat">
+            <div class="stat-value">Co-Founder</div>
+            <div class="stat-label">Role</div>
+          </div>
+          <div class="author-stat">
+            <div class="stat-value">Orem, UT</div>
+            <div class="stat-label">Location</div>
+          </div>
+        </div>
+        <a href="../../about.html" class="author-bio-link">
+          Full biography
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="author-bio-col">
+        <p class="author-bio">Jake Stoker is Co-Founder and Managing Member of Magna Therma Inc., bringing 15 years of entrepreneurial experience across digital health, construction, and energy. At Magna Therma, he drives the development and commercialization of the HyperTherm system and focuses on translating engineering advantage into deployable thermal infrastructure.</p>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── Posts ── -->
+  <section class="posts-section">
+    <div class="posts-section-inner">
+
+      <div class="posts-header">
+        <div class="posts-eyebrow">Writing</div>
+        <h2 class="posts-heading">Articles by Jake Stoker</h2>
+      </div>
+
+      <div class="posts-grid">
+
+        <a class="post-card" href="../two-phase-immersion-cooling.html">
+          <div class="post-card-meta">
+            <span class="post-category">Thermal Engineering</span>
+            <span class="post-read-time">8 min read</span>
+          </div>
+          <h3 class="post-title">Two-Phase Immersion Cooling: How the HyperTherm System Eliminates Pump Overhead</h3>
+          <p class="post-excerpt">Traditional liquid cooling loops rely on active pumps to circulate coolant. The HyperTherm passive thermosyphon eliminates that dependency entirely — cutting cooling power overhead by up to 90% while achieving heat flux densities conventional systems can't reach.</p>
+          <span class="post-date">June 15, 2026</span>
+        </a>
+
+        <a class="post-card" href="#">
+          <div class="post-card-meta">
+            <span class="post-category">Industry Insights</span>
+            <span class="post-read-time">5 min read</span>
+          </div>
+          <h3 class="post-title">Why Edge Deployments Demand Rethinking Thermal Architecture</h3>
+          <p class="post-excerpt">Edge compute pushes hardware into environments never designed for it: remote substations, mobile platforms, harsh industrial sites. When the data center no longer exists, your thermal architecture has to work without it.</p>
+          <span class="post-date">May 10, 2026</span>
+        </a>
+
+        <a class="post-card" href="#">
+          <div class="post-card-meta">
+            <span class="post-category">Product Updates</span>
+            <span class="post-read-time">4 min read</span>
+          </div>
+          <h3 class="post-title">HyperTherm Platform Achieves 200kW Per Tank in Testing</h3>
+          <p class="post-excerpt">Validated testing confirms the HyperTherm system sustains 200kW per modular tank — a benchmark that redefines what's achievable in a deployable two-phase immersion platform. A look at what that figure actually means for deployment density.</p>
+          <span class="post-date">April 22, 2026</span>
+        </a>
+
+      </div>
+
+      <a href="../index.html" class="posts-back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        All Insights
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="footer-to-white" color-interpolation-filters="sRGB">
+                <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+              </filter>
+            </defs>
+            <image href="../../assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#footer-to-white)" preserveAspectRatio="xMidYMid meet"/>
+            <image href="../../assets/icon-blue.png" x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+            <image href="../../assets/magna.png" x="60" y="0" width="138" height="18" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+            <image href="../../assets/therma.png" x="60" y="22" width="63" height="14" filter="url(#footer-to-white)" preserveAspectRatio="xMinYMin meet"/>
+          </svg>
+        </div>
+        <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Technology</div>
+        <ul class="footer-col-links">
+          <li><a href="../../index.html#technology">Liquid Cooling</a></li>
+          <li><a href="../../index.html#technology">Thermal Distribution</a></li>
+          <li><a href="../../index.html#technology">Modular Systems</a></li>
+          <li><a href="../../index.html#technology">Monitoring</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="#">Engineering</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="../../index.html#specifications">Datasheets</a></li>
+          <li><a href="#">Installation Guide</a></li>
+          <li><a href="#">Integration Notes</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../ip-notices.html">IP Notices</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

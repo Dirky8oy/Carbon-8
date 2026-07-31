@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Two-Phase Immersion Cooling: How the HyperTherm System Eliminates Pump Overhead | MAGNA therma</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --near-black: #0B0B0C;
+  --arctic-blue: #0077C8;
+  --glacial-cyan: #39D5FF;
+  --deep-navy: #071E33;
+  --card-bg: #13161A;
+  --frost-gray: #DDE5EA;
+  --frost-white: #F7FAFC;
+  --helv: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--helv); background: var(--near-black); color: var(--frost-white); overflow-x: hidden; }
+
+/* Nav */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 72px;
+  background: rgba(7,30,51,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo svg { display: block; overflow: visible; }
+.nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+.nav-links a {
+  font-family: var(--helv); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(247,250,252,0.7); text-decoration: none; transition: color 200ms;
+}
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: #F7FAFC; }
+.nav-cta {
+  font-family: var(--helv); font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  color: #F7FAFC; background: var(--arctic-blue);
+  border: none; padding: 10px 24px; text-decoration: none; flex-shrink: 0; transition: background 200ms;
+}
+.nav-cta:hover { background: #0066aa; }
+.page-wrap { padding-top: 72px; }
+
+/* Article header */
+.article-header {
+  background: var(--near-black); padding: 80px 80px 64px; position: relative; overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.article-header::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,119,200,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,119,200,0.04) 1px, transparent 1px);
+  background-size: 80px 80px; pointer-events: none;
+}
+.article-header-inner { max-width: 800px; margin: 0 auto; position: relative; }
+.article-breadcrumb {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 28px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+}
+.article-breadcrumb a { color: rgba(221,229,234,0.4); text-decoration: none; transition: color 150ms; }
+.article-breadcrumb a:hover { color: rgba(221,229,234,0.75); }
+.breadcrumb-sep { color: rgba(221,229,234,0.2); }
+.article-breadcrumb span { color: rgba(221,229,234,0.25); }
+.article-category {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--arctic-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.article-category::before { content: ''; display: block; width: 20px; height: 1px; background: var(--arctic-blue); }
+.article-title {
+  font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1;
+  color: #F7FAFC; margin-bottom: 24px;
+}
+.article-excerpt { font-size: 18px; line-height: 1.7; color: rgba(221,229,234,0.6); margin-bottom: 40px; }
+.article-meta {
+  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  padding-top: 28px; border-top: 1px solid rgba(221,229,234,0.08);
+}
+.author-chip { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(0,119,200,0.15); border: 1px solid rgba(0,119,200,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em; color: var(--arctic-blue); flex-shrink: 0;
+}
+.author-info-name { font-size: 14px; font-weight: 500; color: rgba(221,229,234,0.8); }
+.author-info-role { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; color: rgba(221,229,234,0.35); margin-top: 2px; }
+.article-stats { display: flex; align-items: center; gap: 20px; }
+.stat-item { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(221,229,234,0.35); }
+.stat-item strong { color: rgba(221,229,234,0.6); font-weight: 500; }
+
+/* Article body layout */
+.article-body-wrap {
+  padding: 72px 80px 96px; display: grid; grid-template-columns: 1fr 260px; gap: 72px; max-width: 1200px; margin: 0 auto; align-items: start;
+}
+
+/* TOC */
+.article-toc { position: sticky; top: 88px; }
+.toc-heading {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(221,229,234,0.3); margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(221,229,234,0.07);
+}
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.toc-list a {
+  display: block; padding: 7px 12px; font-size: 12px; line-height: 1.45;
+  color: rgba(221,229,234,0.45); text-decoration: none; border-left: 2px solid transparent;
+  transition: color 150ms, border-color 150ms;
+}
+.toc-list a:hover { color: rgba(221,229,234,0.85); border-left-color: rgba(0,119,200,0.5); }
+.toc-list a.active { color: #F7FAFC; border-left-color: var(--arctic-blue); }
+.toc-back { display: flex; align-items: center; gap: 6px; margin-top: 24px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(221,229,234,0.3); text-decoration: none; transition: color 150ms; }
+.toc-back:hover { color: var(--arctic-blue); }
+.toc-back::before { content: '←'; }
+
+/* Article prose */
+.article-prose { max-width: 100%; }
+.article-prose h2 {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: #F7FAFC;
+  margin-top: 56px; margin-bottom: 20px; padding-top: 40px;
+  border-top: 1px solid rgba(221,229,234,0.07);
+  scroll-margin-top: 96px;
+}
+.article-prose h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.article-prose h3 { font-size: 17px; font-weight: 700; color: rgba(247,250,252,0.9); margin-top: 32px; margin-bottom: 14px; letter-spacing: -0.01em; }
+.article-prose p { font-size: 16px; line-height: 1.85; color: rgba(221,229,234,0.65); margin-bottom: 20px; }
+.article-prose p strong { color: rgba(221,229,234,0.9); font-weight: 600; }
+.article-prose ul { margin-bottom: 20px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.article-prose ul li {
+  font-size: 15px; line-height: 1.75; color: rgba(221,229,234,0.6);
+  padding-left: 20px; position: relative;
+}
+.article-prose ul li::before { content: '—'; position: absolute; left: 0; color: rgba(0,119,200,0.5); font-family: var(--mono); }
+.article-callout {
+  margin: 32px 0; padding: 28px 32px;
+  border: 1px solid rgba(0,119,200,0.2); border-left: 3px solid var(--arctic-blue);
+  background: rgba(0,119,200,0.05);
+}
+.article-callout p { font-size: 15px !important; color: rgba(221,229,234,0.75) !important; margin-bottom: 0 !important; font-style: italic; }
+.article-stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: rgba(221,229,234,0.06); margin: 32px 0;
+}
+.article-stat-cell { background: var(--card-bg); padding: 24px; text-align: center; }
+.article-stat-value { font-family: var(--mono); font-size: 24px; font-weight: 500; color: #F7FAFC; letter-spacing: -0.02em; margin-bottom: 6px; }
+.article-stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(221,229,234,0.35); }
+
+/* Author bio at bottom */
+.author-bio-block {
+  margin-top: 64px; padding: 36px; background: var(--card-bg);
+  border: 1px solid rgba(221,229,234,0.07); border-top: 2px solid var(--arctic-blue);
+  display: flex; gap: 24px; align-items: start;
+}
+.author-bio-avatar {
+  width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(0,119,200,0.15); border: 1px solid rgba(0,119,200,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 14px; letter-spacing: 0.05em; color: var(--arctic-blue);
+}
+.author-bio-role { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--arctic-blue); margin-bottom: 4px; }
+.author-bio-name { font-size: 17px; font-weight: 700; color: #F7FAFC; margin-bottom: 10px; }
+.author-bio-text { font-size: 13px; line-height: 1.7; color: rgba(221,229,234,0.5); }
+.author-bio-link { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--arctic-blue); text-decoration: none; }
+.author-bio-link:hover { text-decoration: underline; }
+
+/* Related posts */
+.related-posts { padding: 72px 80px; border-top: 1px solid rgba(221,229,234,0.07); background: var(--near-black); }
+.related-posts-inner { max-width: 1200px; margin: 0 auto; }
+.related-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(221,229,234,0.3); margin-bottom: 32px; display: flex; align-items: center; gap: 10px;
+}
+.related-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--arctic-blue); }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.related-card {
+  background: var(--card-bg); border: 1px solid rgba(221,229,234,0.07);
+  border-top: 2px solid transparent; padding: 28px;
+  display: flex; flex-direction: column; gap: 12px; transition: border-top-color 200ms;
+}
+.related-card:hover { border-top-color: var(--arctic-blue); }
+.related-category { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--arctic-blue); }
+.related-title { font-size: 15px; font-weight: 700; color: #F7FAFC; line-height: 1.35; letter-spacing: -0.01em; }
+.related-title a { color: inherit; text-decoration: none; }
+.related-title a:hover { color: rgba(247,250,252,0.7); }
+.related-author { font-family: var(--mono); font-size: 10px; color: rgba(221,229,234,0.3); margin-top: auto; }
+
+/* Footer */
+.footer { background: var(--near-black); padding: 72px 64px 40px; border-top: 1px solid rgba(221,229,234,0.07); }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 56px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+.footer-brand-logo { margin-bottom: 20px; }
+.footer-brand-body { font-size: 13px; line-height: 1.65; color: rgba(221,229,234,0.4); max-width: 280px; }
+.footer-col-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(221,229,234,0.3); margin-bottom: 18px; }
+.footer-col-links { list-style: none; }
+.footer-col-links li { margin-bottom: 12px; }
+.footer-col-links a { font-size: 13px; color: rgba(221,229,234,0.5); text-decoration: none; transition: color 150ms; }
+.footer-col-links a:hover { color: #F7FAFC; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid rgba(221,229,234,0.07); max-width: 1200px; margin: 0 auto; }
+.footer-copy { font-size: 12px; color: rgba(221,229,234,0.28); }
+.footer-legal { display: flex; gap: 28px; }
+.footer-legal a { font-size: 12px; color: rgba(221,229,234,0.28); text-decoration: none; transition: color 150ms; }
+.footer-legal a:hover { color: rgba(221,229,234,0.6); }
+
+@media (max-width: 1024px) {
+  .article-body-wrap { grid-template-columns: 1fr; padding: 56px 40px 72px; }
+  .article-toc { position: static; }
+  .article-header { padding: 64px 40px 56px; }
+  .related-posts { padding: 56px 40px; }
+  .related-grid { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 32px; } .nav-links { gap: 20px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .article-header { padding: 48px 20px 44px; }
+  .article-body-wrap { padding: 40px 20px 60px; }
+  .related-posts { padding: 48px 20px; }
+  .related-grid { grid-template-columns: 1fr; }
+  .article-stat-row { grid-template-columns: 1fr; }
+  .author-bio-block { flex-direction: column; }
+  .footer { padding: 48px 20px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo" aria-label="MAGNA therma home">
+    <svg height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="nav-to-white" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
+        </filter>
+      </defs>
+      <image href="../assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#nav-to-white)" preserveAspectRatio="xMidYMid meet"/>
+      <image href="../assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+      <image href="../assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+      <image href="../assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#nav-to-white)" preserveAspectRatio="xMinYMin meet"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html#technology">Technology</a></li>
+    <li><a href="../index.html#applications">Applications</a></li>
+    <li><a href="../index.html#specifications">Specs</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="index.html" aria-current="page">Insights</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <a href="../contact.html" class="nav-cta">Request Specs</a>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="article-header">
+    <div class="article-header-inner">
+      <div class="article-breadcrumb">
+        <a href="index.html">Insights</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="category/thermal-engineering.html">Thermal Engineering</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Article</span>
+      </div>
+      <div class="article-category">Thermal Engineering</div>
+      <h1 class="article-title">Two-Phase Immersion Cooling: How the HyperTherm System Eliminates Pump Overhead</h1>
+      <p class="article-excerpt">A detailed look at how dielectric immersion and passive loop thermosyphon technology achieves cooling without conventional pump infrastructure — and what that means for cooling power overhead at 200 kW per tank.</p>
+      <div class="article-meta">
+        <div class="author-chip">
+          <div class="author-avatar">JS</div>
+          <div>
+            <div class="author-info-name">Jake Stoker</div>
+            <div class="author-info-role">Co-Founder &amp; Managing Member</div>
+          </div>
+        </div>
+        <div class="article-stats">
+          <div class="stat-item"><strong>June 15, 2026</strong></div>
+          <div class="stat-item"><strong>8</strong> min read</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body-wrap">
+
+    <!-- TOC -->
+    <aside class="article-toc">
+      <div class="toc-heading">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#the-problem" id="toc-1">The problem with conventional cooling</a></li>
+        <li><a href="#two-phase-basics" id="toc-2">How two-phase immersion works</a></li>
+        <li><a href="#loop-thermosyphon" id="toc-3">The loop thermosyphon advantage</a></li>
+        <li><a href="#hypertherm" id="toc-4">HyperTherm system architecture</a></li>
+        <li><a href="#performance" id="toc-5">Performance numbers</a></li>
+        <li><a href="#where-it-fits" id="toc-6">Where it fits</a></li>
+      </ul>
+      <a href="index.html" class="toc-back">All articles</a>
+    </aside>
+
+    <!-- Prose -->
+    <article class="article-prose">
+
+      <h2 id="the-problem">The problem with conventional cooling</h2>
+      <p>Every watt of compute generates a watt of heat. At the power densities modern AI accelerators and HPC workloads demand — 10 to 20 kW per server, 50 to 100 kW per rack — that heat load exceeds what air cooling can remove without consuming a significant fraction of the system's total power budget.</p>
+      <p>The infrastructure math is blunt: a conventional chilled-water data center running at a Power Usage Effectiveness (PUE) of 1.5 spends fifty cents on cooling for every dollar of compute power. At scale, that overhead compounds. A 10 MW compute facility runs 5 MW of cooling infrastructure. That is not a rounding error. It is a capital line item, an operating cost, and increasingly a permitting constraint in water-stressed regions.</p>
+      <p><strong>Pump-dependent cooling systems add a second layer of overhead.</strong> Chilled-water distribution loops, computer room air handlers, and cooling distribution units all contain rotating machinery. That machinery consumes power, requires maintenance, and introduces failure modes. For edge deployments or defense applications where service interruptions carry operational consequences, pump dependency is a genuine liability.</p>
+
+      <div class="article-callout">
+        <p>The constraint is not power density alone — it is the infrastructure tax required to manage that density with conventional systems. Reducing cooling overhead by 10x is not an incremental improvement. It changes the economic structure of the deployment.</p>
+      </div>
+
+      <h2 id="two-phase-basics">How two-phase immersion works</h2>
+      <p>Two-phase immersion cooling submerges compute hardware directly in a dielectric fluid — an electrically non-conductive liquid engineered to have a low boiling point, typically between 40°C and 60°C at atmospheric pressure. When server components generate heat, the fluid boils on contact with hot surfaces, absorbing heat as latent energy during the phase transition from liquid to vapor.</p>
+      <p>This is the mechanism that makes two-phase immersion fundamentally different from single-phase systems. Single-phase immersion moves fluid past heat sources and relies on sensible heat capacity — the fluid warms up but does not change state. Two-phase immersion exploits the latent heat of vaporization, which is orders of magnitude larger than sensible heat capacity for the same mass of fluid. The result is dramatically higher heat removal per unit of fluid flow.</p>
+
+      <h3>Why phase change matters for pump-free operation</h3>
+      <p>In a single-phase system, fluid must be actively pumped to maintain sufficient flow rate for heat removal. Remove the pump, and temperature rises until thermal limits are exceeded. The pump is not optional — it is load-bearing infrastructure.</p>
+      <p>In a two-phase system with the right condenser geometry, vapor rises naturally through buoyancy while cooled condensate returns by gravity. The thermosyphon effect — fluid circulation driven entirely by the temperature differential between the boiling zone and the condenser — can sustain heat removal without any pump in the primary loop. The fluid circuit is self-regulating: more heat input produces more vapor, which drives more circulation, which increases heat removal capacity.</p>
+
+      <div class="article-stat-row">
+        <div class="article-stat-cell">
+          <div class="article-stat-value">200 kW</div>
+          <div class="article-stat-label">Per Tank Capacity</div>
+        </div>
+        <div class="article-stat-cell">
+          <div class="article-stat-value">10x</div>
+          <div class="article-stat-label">Lower Cooling Overhead</div>
+        </div>
+        <div class="article-stat-cell">
+          <div class="article-stat-value">Zero</div>
+          <div class="article-stat-label">Water Consumption</div>
+        </div>
+      </div>
+
+      <h2 id="loop-thermosyphon">The loop thermosyphon advantage</h2>
+      <p>A loop thermosyphon is a closed two-phase heat transfer circuit with spatially separated evaporator and condenser sections connected by vapor and liquid lines. The evaporator sits at the bottom of the tank in contact with the dielectric fluid; the condenser sits at the top, where vapor collects and rejects heat to a secondary coolant circuit or ambient air.</p>
+      <p>The loop configuration provides geometric flexibility that a conventional pool boiling system does not. The condenser can be positioned above the evaporator to exploit natural convection, or the loop can be oriented to work with available heat rejection infrastructure. This matters for modular deployment: a loop thermosyphon tank is not a fixed installation requiring a custom mechanical room. It is a self-contained thermal unit that can be positioned to match the installation geometry.</p>
+      <ul>
+        <li>No pumps, no compressors, no rotating machinery in the primary loop</li>
+        <li>Passive circulation driven by phase-change thermodynamics</li>
+        <li>Condenser geometry adaptable to air-cooled or liquid-cooled heat rejection</li>
+        <li>Intrinsically self-regulating: heat input scales circulation rate</li>
+        <li>Failure mode is thermal throttling, not catastrophic loss of cooling</li>
+      </ul>
+
+      <h2 id="hypertherm">HyperTherm system architecture</h2>
+      <p>The HyperTherm platform packages this technology into a modular tank designed for dense compute deployment. Each tank is sized to support up to 200 kW of installed compute load — the equivalent of a high-density GPU cluster or a fully populated AI accelerator chassis. Multiple tanks can be co-located to scale capacity without replicating auxiliary infrastructure.</p>
+      <p>The tank interior holds servers submerged in dielectric fluid. Servers require minimal hardware modification — standard server designs work with dielectric immersion with appropriate sealing and material compatibility verification. The fluid is electrically non-conductive, so hardware does not require special isolation beyond what the manufacturer's specifications demand for the operating thermal environment.</p>
+      <p>Heat removal follows the loop thermosyphon path: dielectric fluid absorbs heat from server surfaces, boils, rises to the condenser at the top of the tank, rejects heat to the secondary coolant circuit, condenses, and returns to the evaporator pool by gravity. The secondary circuit can be air-cooled via a dry cooler or connected to a facility chilled-water loop, depending on deployment context.</p>
+
+      <div class="article-callout">
+        <p>The absence of pumps in the primary loop is not a design constraint we work around — it is a design objective we designed toward. Every pump removed is maintenance eliminated, power overhead eliminated, and a failure mode eliminated.</p>
+      </div>
+
+      <h2 id="performance">Performance numbers</h2>
+      <p>The performance case for two-phase immersion rests on three measurable quantities: cooling power overhead, fluid outlet temperature, and water consumption.</p>
+      <p><strong>Cooling power overhead</strong> for the HyperTherm system is less than 10 kW to support 200 kW of compute — a ratio below 5%, compared to 30-50% for conventional air cooling at equivalent density. That difference is structural, not incremental. It comes from eliminating pump power, eliminating computer room air handler power, and removing the thermal resistance chain between the heat source and the coolant.</p>
+      <p><strong>Fluid outlet temperature</strong> remains at or below 50°C under full load. This matters for two reasons. First, it keeps server junction temperatures within safe operating range. Second, it produces a waste heat stream at a temperature high enough to be useful — for space heating, industrial process heat, or district energy applications where waste heat recovery has real economic value.</p>
+      <p><strong>Water consumption</strong> is zero in the primary loop. The dielectric fluid is a closed system — it does not evaporate, it does not require makeup water, and it does not interact with the water table. For deployments in water-stressed regions or jurisdictions implementing water use restrictions on data centers, this is increasingly a permitting requirement, not a preference.</p>
+
+      <h2 id="where-it-fits">Where it fits</h2>
+      <p>Two-phase immersion is not the right solution for every workload. Low-density compute in well-serviced facilities with abundant water and cheap electricity does not benefit enough from the capital cost of immersion infrastructure to justify the transition.</p>
+      <p>The environments where HyperTherm's architecture provides genuine structural advantage are those where conventional cooling either fails or becomes prohibitively expensive:</p>
+      <ul>
+        <li><strong>High-density AI and HPC clusters</strong> where rack densities exceed 30 kW and air cooling requires raised floors, dedicated chiller capacity, and hot-aisle containment that consumes significant floor area</li>
+        <li><strong>Edge deployments</strong> without climate-controlled facilities, where ambient temperature variation is large and maintaining equipment within rated thermal ranges requires active cooling that draws significant power from limited local supply</li>
+        <li><strong>Defense and aerospace</strong> where maintenance access is constrained, water is unavailable, and thermal reliability under extreme ambient conditions is a hard requirement</li>
+        <li><strong>Energy-intensive operations</strong> like cryptocurrency mining and industrial compute where cooling overhead directly compresses margin on operations running at thin efficiency tolerances</li>
+      </ul>
+      <p>In each of these environments, the HyperTherm system's combination of high heat removal capacity, zero water consumption, minimal moving parts, and pump-free primary loop operation addresses real operational constraints — not theoretical ones.</p>
+
+      <!-- Author bio -->
+      <div class="author-bio-block">
+        <div class="author-bio-avatar">JS</div>
+        <div>
+          <div class="author-bio-role">Written by</div>
+          <div class="author-bio-name">Jake Stoker</div>
+          <p class="author-bio-text">Co-Founder and Managing Member of Magna Therma Inc. Jake drives the development and commercialization of the HyperTherm platform and focuses on translating engineering advantage into deployable thermal infrastructure.</p>
+          <a href="author/jake-stoker.html" class="author-bio-link">More articles by Jake</a>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- Related posts -->
+  <section class="related-posts">
+    <div class="related-posts-inner">
+      <div class="related-eyebrow">Continue Reading</div>
+      <div class="related-grid">
+        <article class="related-card">
+          <div class="related-category">Thermal Engineering</div>
+          <div class="related-title"><a href="#">Thermal Management in Defense: When Failure Is Not an Option</a></div>
+          <div class="related-author">Markus Anderson · March 30, 2026</div>
+        </article>
+        <article class="related-card">
+          <div class="related-category">Industry Insights</div>
+          <div class="related-title"><a href="#">The Real Cost of Air Cooling in High-Density AI Compute</a></div>
+          <div class="related-author">Markus Anderson · May 28, 2026</div>
+        </article>
+        <article class="related-card">
+          <div class="related-category">Product Updates</div>
+          <div class="related-title"><a href="#">HyperTherm Platform Achieves 200 kW Per Tank in Testing</a></div>
+          <div class="related-author">Jake Stoker · April 22, 2026</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-logo">
+          <svg height="30" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="ft-white" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/></filter></defs>
+            <image href="../assets/icon-black.png" x="0" y="0" width="50" height="36" filter="url(#ft-white)" preserveAspectRatio="xMidYMid meet"/>
+            <image href="../assets/icon-blue.png"  x="0" y="0" width="50" height="36" preserveAspectRatio="xMidYMid meet"/>
+            <image href="../assets/magna.png"  x="60" y="0"  width="138" height="18" filter="url(#ft-white)" preserveAspectRatio="xMinYMin meet"/>
+            <image href="../assets/therma.png" x="60" y="22" width="63"  height="14" filter="url(#ft-white)" preserveAspectRatio="xMinYMin meet"/>
+          </svg>
+        </div>
+        <p class="footer-brand-body">Advanced cooling technology built for serious thermal performance. Engineered, premium, industrial.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Technology</div>
+        <ul class="footer-col-links">
+          <li><a href="../index.html#technology">Liquid Cooling</a></li>
+          <li><a href="../index.html#technology">Thermal Distribution</a></li>
+          <li><a href="../index.html#technology">Modular Systems</a></li>
+          <li><a href="../index.html#technology">Monitoring</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="../about.html">About</a></li>
+          <li><a href="#">Engineering</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-col-links">
+          <li><a href="../index.html#specifications">Datasheets</a></li>
+          <li><a href="index.html">Insights</a></li>
+          <li><a href="#">Installation Guide</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 MAGNA therma Inc.® All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../ip-notices.html">IP Notices</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Highlight active TOC item on scroll
+const headings = document.querySelectorAll('.article-prose h2');
+const tocLinks = document.querySelectorAll('.toc-list a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-72px 0px -60% 0px' });
+headings.forEach(h => observer.observe(h));
+</script>
+
+</body>
+</html>
